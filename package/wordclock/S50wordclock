@@ -1,0 +1,27 @@
+#!/bin/sh
+#
+# Start/stop wordclock
+#
+
+PIDFILE=/var/run/wordclock.pid
+
+case "$1" in
+  start)
+	export LANG=de_DE.UTF-8
+	export TZ=$(cat /etc/TZ)
+	
+	echo "Starting wordclock..."
+	start-stop-daemon -b -S -m -p $PIDFILE -x /usr/sbin/wordclock
+	;;
+  stop)
+	printf "Stopping wordclock..."
+	start-stop-daemon -K -o -p $PIDFILE
+	;;
+  restart|reload)
+	"$0" stop
+	"$0" start
+	;;
+  *)
+	echo "Usage: $0 {start|stop|restart}"
+	exit 1
+esac
