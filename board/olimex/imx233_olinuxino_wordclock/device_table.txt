@@ -1,0 +1,16 @@
+# See package/makedevs/README for details
+#
+# This device table is used to assign proper ownership and permissions
+# on various files. It doesn't create any device file, as it is used
+# in both static device configurations (where /dev/ is static) and in
+# dynamic configurations (where devtmpfs, mdev or udev are used).
+#
+# <name>				<type>	<mode>	<uid>	<gid>	<major>	<minor>	<start>	<inc>	<count>
+/usr/sbin/wpa_action				f	755	0	0	-	-	-	-	-
+/etc/autossh/id_rsa				f	600	0	0	-	-	-	-	-
+/etc/init.d/S60autossh				f	755	0	0	-	-	-	-	-
+/etc/network/if-pre-up.d/setmac				f	755	0	0	-	-	-	-	-
+/etc/wpa_supplicant/action_wpa.sh				f	755	0	0	-	-	-	-	-
+/etc/wpa_supplicant/functions.sh				f	755	0	0	-	-	-	-	-
+/etc/wpa_supplicant/ifupdown.sh				f	755	0	0	-	-	-	-	-
+/etc/wpa_supplicant/wpa_supplicant.conf				f	600	0	0	-	-	-	-	-
