@@ -1,0 +1,180 @@
+<!DOCTYPE html> 
+<html lang="de">
+	<head>
+		<title>WordClock - Hardware Info</title>
+		<meta charset="utf-8">
+		<meta name="robots" content="noindex, nofollow">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		
+		<link rel="stylesheet" href="http://cdn.jsdelivr.net/bootstrap/3.3.6/css/bootstrap.min.css" type="text/css">
+				
+		<script src="http://cdn.jsdelivr.net/g/jquery@1.11.3,bootstrap@3.3.6"></script>
+		
+		<!--[if lt IE 9]><script src="http://cdn.jsdelivr.net/g/html5shiv@3.7.2,respond@1.4.2"></script><![endif]-->
+		
+		<script type="text/javascript">
+			jQuery(document).ready(function($) {
+				function getSensors() {
+					$.ajax({
+						url: 'http://'+location.hostname+':8080/hwinfo',
+						type: 'GET',
+						success: function(result) {
+							$('.panel').each(function() {
+								var i = $(this).attr('id');
+								var g = $(this).data('group');
+								
+								if(typeof(g) == "undefined") {
+									$('#'+i+' pre').text(result[i]);
+								}else if(typeof(result[g][i]['value']) == "boolean" && result[g][i]['value']) {
+									$('#'+i+' .true').show();
+									$('#'+i+' .false').hide();
+								}else if(typeof(result[g][i]['value']) == "boolean" && !result[g][i]['value']) {
+									$('#'+i+' .true').hide();
+									$('#'+i+' .false').show();
+								}else if(typeof(result[g][i]["median"]) == "number") {
+									if(i == "brightness") {
+										$('#'+i+' .progress-bar').css({ width: result[g][i]["median"]/33+"%"});
+									}
+									if(i == "temp") {
+										result[g][i]["min"] = result[g][i]["min"]*1000;
+										result[g][i]["max"] = result[g][i]["max"]*1000;
+										result[g][i]["median"] = result[g][i]["median"]*1000;
+									}
+									result[g][i]["min"] = Math.round(result[g][i]["min"])/1000;
+									result[g][i]["max"] = Math.round(result[g][i]["max"])/1000;
+									result[g][i]["median"] = Math.round(result[g][i]["median"])/1000;
+									$('#'+i+' .min-value').text(result[g][i]["min"]);
+									$('#'+i+' .max-value').text(result[g][i]["max"]);
+									$('#'+i+' .value').text(result[g][i]["median"]);
+								}
+							});
+							
+							setTimeout(getSensors, 500);
+							return true;
+						},
+						error: function() {
+							setTimeout(getSensors, 1000);
+						}
+					});
+				}
+				getSensors();
+			});
+		</script>
+	</head>
+
+	<body>
+		<div class="container">
+			<h1 class="page-header"><span class="glyphicon glyphicon-scale"></span> Hardware Info</h1>
+			
+			<div class="row">
+				<div class="col-sm-3 col-xs-6">
+					<div id="vdd5v" data-group="lradcs" class="panel panel-default">
+					  <div class="panel-heading">
+						<h3 class="panel-title">VDD 5V</h3>
+					  </div>
+					  <div class="panel-body text-center">
+						<small>min. <span class="min-value"></span> V</small><br>
+						<span class="h2"><span class="value">5</span> V</span><br>
+						<small>max. <span class="max-value"></span> V</small>
+					  </div>
+					</div>
+				</div>
+				<div class="col-sm-3 col-xs-6">
+					<div id="vddio" data-group="lradcs" class="panel panel-default">
+					  <div class="panel-heading">
+						<h3 class="panel-title">VDD IO</h3>
+					  </div>
+					  <div class="panel-body text-center">
+						<small>min. <span class="min-value"></span> V</small><br>
+						<span class="h2"><span class="value">5</span> V</span><br>
+						<small>max. <span class="max-value"></span> V</small>
+					  </div>
+					</div>
+				</div>
+				<div class="col-sm-3 col-xs-6">
+					<div id="battery" data-group="lradcs" class="panel panel-default">
+					  <div class="panel-heading">
+						<h3 class="panel-title">Battery</h3>
+					  </div>
+					  <div class="panel-body text-center">
+						<small>min. <span class="min-value"></span> V</small><br>
+						<span class="h2"><span class="value">4</span> V</span><br>
+						<small>max. <span class="max-value"></span> V</small>
+					  </div>
+					</div>
+				</div>
+				<div class="col-sm-3 col-xs-6">
+					<div id="temp" data-group="lradcs" class="panel panel-default">
+					  <div class="panel-heading">
+						<h3 class="panel-title">Temperature</h3>
+					  </div>
+					  <div class="panel-body text-center">
+						<small>min. <span class="min-value"></span>°C</small><br>
+						<span class="h2"><span class="value">20</span>°C</span><br>
+						<small>max. <span class="max-value"></span>°C</small>
+					  </div>
+					</div>
+				</div>
+				<div class="col-xs-12">
+					<div id="brightness" data-group="lradcs" class="panel panel-default">
+					  <div class="panel-heading">
+						<h3 class="panel-title">Brightness</h3>
+					  </div>
+					  <div class="panel-body text-center">
+						<div class="progress">
+						  <div class="progress-bar" role="progressbar" style="width: 60%;">
+							<span class="value">60</span>V
+						  </div>
+						</div>
+						<div style="margin-top: -20px;">
+						  <small>min. <span class="min-value"></span>V</small>, 
+						  <small>max. <span class="max-value"></span>V</small>
+						</div>
+					  </div>
+					</div>
+				</div>
+				<div class="col-sm-3 col-xs-6">
+					<div id="motion" data-group="gpios" class="panel panel-default">
+					  <div class="panel-heading">
+						<h3 class="panel-title">Motion</h3>
+					  </div>
+					  <div class="panel-body">
+						<p class="text-center h1"><span style="color: green;" class="glyphicon glyphicon-ok true"></span><span style="color: red;" class="glyphicon glyphicon-remove false"></span></p>
+					  </div>
+					</div>
+				</div>
+				<div class="col-sm-3 col-xs-6">
+					<div id="button0" data-group="gpios" class="panel panel-default">
+					  <div class="panel-heading">
+						<h3 class="panel-title">Button 0</h3>
+					  </div>
+					  <div class="panel-body">
+						<p class="text-center h1"><span style="color: green;" class="glyphicon glyphicon-ok true"></span><span style="color: red;" class="glyphicon glyphicon-remove false"></span></p>
+					  </div>
+					</div>
+				</div>
+				<div class="col-sm-3 col-xs-6">
+					<div id="button1" data-group="gpios" class="panel panel-default">
+					  <div class="panel-heading">
+						<h3 class="panel-title">Button 1</h3>
+					  </div>
+					  <div class="panel-body">
+						<p class="text-center h1"><span style="color: green;" class="glyphicon glyphicon-ok true"></span><span style="color: red;" class="glyphicon glyphicon-remove false"></span></p>
+					  </div>
+					</div>
+				</div>
+				<div class="col-sm-3 col-xs-6">
+					<div id="button2" data-group="gpios" class="panel panel-default">
+					  <div class="panel-heading">
+						<h3 class="panel-title">Button 2</h3>
+					  </div>
+					  <div class="panel-body">
+						<p class="text-center h1"><span style="color: green;" class="glyphicon glyphicon-ok true"></span><span style="color: red;" class="glyphicon glyphicon-remove false"></span></p>
+					  </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
