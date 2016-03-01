@@ -1,0 +1,68 @@
+<!DOCTYPE html> 
+<html lang="de">
+	<head>
+		<title>WordClock - Settings</title>
+		<meta charset="utf-8">
+		<meta name="robots" content="noindex, nofollow">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		
+		<link rel="stylesheet" href="http://cdn.jsdelivr.net/bootstrap/3.3.6/css/bootstrap.min.css" type="text/css">
+		<link rel="stylesheet" href="jsoneditor/jsoneditor.min.css" type="text/css">
+				
+		<script src="http://cdn.jsdelivr.net/g/jquery@1.11.3,bootstrap@3.3.6"></script>
+		<script src="jsoneditor/jsoneditor.min.js"></script>
+		
+		<!--[if lt IE 9]><script src="http://cdn.jsdelivr.net/g/html5shiv@3.7.2,respond@1.4.2"></script><![endif]-->
+		
+		<script type="text/javascript">
+			jQuery(document).ready(function($) {
+				var editor = new JSONEditor($('#container')[0]);
+				function getSensors() {
+					$.ajax({
+						url: 'http://'+location.hostname+':8080/settings',
+						type: 'GET',
+						success: function(result) {
+							editor.set(result.objects);
+						},
+						error: function() {
+							setTimeout(getSensors, 1000);
+						}
+					});
+				}
+				
+				getSensors();
+				
+				$('#save').click(function() {
+					$.ajax({
+						url: 'http://'+location.hostname+':8080/settings',
+						type: 'PUT',
+						data: JSON.stringify({ objects: editor.get() }),
+						contentType: 'application/json',
+						dataType: 'json',
+						success: function(result) {
+							alert(result);
+						},
+						error: function(result) {
+							alert(result.responseText);
+						}
+					});
+				});
+				
+				$('#load').click(getSensors);
+			});
+		</script>
+	</head>
+
+	<body>
+		<div class="container">
+			<h1 class="page-header"><span class="glyphicon glyphicon-wrench"></span> JSON editor</h1>
+			
+			<div id="container"></div>
+			<div style="margin-top: 20px;" class="btn-group" role="group">
+				<button id="save" type="button" class="btn btn-primary">Save</button>
+				<button id="load" type="button" class="btn btn-default">Load</button>
+			</div>
+		</div>
+	</body>
+</html>
