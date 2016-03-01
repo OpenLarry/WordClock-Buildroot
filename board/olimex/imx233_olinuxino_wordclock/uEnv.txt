@@ -1,0 +1,24 @@
+baudrate=115200
+boot_fdt=try
+bootcmd=mmc dev ${mmcdev}; if mmc rescan; then if gpio input 994; then echo Button not pressed; else echo Button pressed; run copypart; fi; if test ${firstboot} = 1; then run copypart; fi; if run loadbootscript; then run bootscript; else if run loaduimage; then run mmcboot; else echo uImage error; fi; fi; else echo mmc error; fi
+bootdelay=1
+bootscript=echo Running bootscript from mmc ...; source
+console=ttyAMA0
+fdt_addr=0x41000000
+fdt_file=/boot/imx23-olinuxino.dtb
+loadaddr=0x42000000
+loadbootscript=ext2load mmc ${mmcdev}:${mmcpart} ${loadaddr} ${script};
+loadfdt=ext2load mmc ${mmcdev}:${mmcpart} ${fdt_addr} ${fdt_file}
+loaduimage=ext2load mmc ${mmcdev}:${mmcpart} ${loadaddr} ${uimage}
+mmcargs=setenv bootargs console=${console},${baudrate} root=${mmcroot}
+mmcboot=echo Booting from mmc ...; run mmcargs; if test ${boot_fdt} = yes || test ${boot_fdt} = try; then if run loadfdt; then bootm ${loadaddr} - ${fdt_addr}; else if test ${boot_fdt} = try; then bootm; else echo WARN: Cannot load the DT; fi; fi; else bootm; fi;
+mmcdev=0
+mmcpart=3
+mmcroot=/dev/mmcblk0p3 rw rootwait
+script=boot.scr
+stderr=serial
+stdin=serial
+stdout=serial
+uimage=/boot/uImage
+firstboot=1
+copypart=echo Copy system partition...; mmc read 0x41000000 0x1000 0xC800; mmc write 0x41000000 0x33000 0xC800; echo 25; mmc read 0x41000000 0xD800 0xC800; mmc write 0x41000000 0x3F800 0xC800; echo 50; mmc read 0x41000000 0x1A000 0xC800; mmc write 0x41000000 0x4C000 0xC800; echo 75; mmc read 0x41000000 0x26800 0xC800; mmc write 0x41000000 0x58800 0xC800; echo 100; setenv firstboot 0; saveenv;
