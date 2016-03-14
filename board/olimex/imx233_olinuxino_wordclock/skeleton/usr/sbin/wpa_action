@@ -47,9 +47,6 @@ case "$WPA_ACTION" in
 			wpa_cli status | wpa_msg log
 			wpa_cli reassociate
 		fi
-		# https://github.com/Pivosgroup/buildroot-linux/blob/master/board/amlogic/xios/skeleton/sbin/wpa_action
-		[ -f /var/run/udhcpc.$WPA_IFACE.pid] && killall udhcpc
-		/sbin/udhcpc -b -i $WPA_IFACE -p /var/run/udhcpc.$WPA_IFACE.pid
 		;;
 
 	"DISCONNECTED")
@@ -57,8 +54,6 @@ case "$WPA_ACTION" in
 		wpa_hysteresis_check || exit 1
 		ifdown
 		if_post_down_up
-		# https://github.com/Pivosgroup/buildroot-linux/blob/master/board/amlogic/xios/skeleton/sbin/wpa_action
-		/sbin/udhcpc -b -i $WPA_IFACE -p /var/run/udhcpc.$WPA_IFACE.pid
 		;;
 
 	"stop"|"down")
