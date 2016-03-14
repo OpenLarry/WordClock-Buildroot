@@ -901,12 +901,9 @@ ifup () {
 		return 1
 	fi
 
-	if [ -e /etc/network/run/ifstate ]; then
-		# debian's ifupdown
-		IFSTATE_FILE="/etc/network/run/ifstate"
-	elif [ -e /run/network/ifstate ]; then
-		# ubuntu's
-		IFSTATE_FILE="/run/network/ifstate"
+	if [ -e /var/run/ifstate ]; then
+		# bootstrap's ifupdown
+		IFSTATE_FILE="/var/run/ifstate"
 	else
 		unset IFSTATE_FILE
 	fi
@@ -955,7 +952,7 @@ ifup () {
 
 		if [ -n "$IFSTATE_FILE" ] && grep -q "^$WPA_IFACE=$WPA_IFACE" "$IFSTATE_FILE"; then
 			# Force settings over the unconfigured "master" IFACE
-			/sbin/ifup -v --force "$WPA_IFACE=$WPA_LOGICAL_IFACE"
+			/sbin/ifup -v -f "$WPA_IFACE=$WPA_LOGICAL_IFACE"
 		else
 			/sbin/ifup -v "$WPA_IFACE=$WPA_LOGICAL_IFACE"
 		fi
@@ -981,7 +978,8 @@ ifdown () {
 
 	ifupdown_lock
 
-	/sbin/ifdown -v "$WPA_IFACE"
+	# buildroot quickfix - need to stop "wlan0=default" to kill udhcpc
+	/sbin/ifdown -v "$WPA_IFACE=default"
 
 	ifupdown_unlock
 
