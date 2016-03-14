@@ -15,6 +15,7 @@ wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
 
 # erstes bekanntes WLAN Name:default mit DHCP
 iface default inet dhcp
+	hostname $(hostname)
 
 # Optional - Schnittstelle automatisch aktivieren
 auto wlan0
