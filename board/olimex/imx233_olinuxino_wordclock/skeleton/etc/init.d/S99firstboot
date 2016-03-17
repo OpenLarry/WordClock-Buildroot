@@ -1,0 +1,14 @@
+#!/bin/sh
+#
+# Set firstboot uboot environment variable
+#
+set -e
+
+case "$1" in
+  start)
+	if fw_printenv firstboot | grep -q 2; then
+		echo "First boot after system upgrade";
+		fw_setenv firstboot 0;
+	fi;
+	;;
+esac
