@@ -1,24 +1,19 @@
 baudrate=115200
-boot_fdt=try
-bootcmd=mmc dev ${mmcdev}; if mmc rescan; then if gpio input 994; then echo Button not pressed; else echo Button pressed; run copypart; fi; if test ${firstboot} = 1; then run copypart; fi; if run loadbootscript; then run bootscript; else if run loaduimage; then run mmcboot; else echo uImage error; fi; fi; else echo mmc error; fi
+bootcmd=mmc dev ${mmcdev}; if mmc rescan; then if gpio input 986; then echo Button 2 not pressed; run checkfail; else echo Button 2 pressed; run switch_system; fi; if gpio input 994; then echo Button 1 not pressed; else echo Button 1 pressed; echo Erase ext4 partition; mw 0x41000000 0x00000000 0x800000; mmc write 0x41000000 0x26800 0x10000; fi; run set_system; if run loaduimage; then run mmcargs; bootm ${loadaddr}; else echo uImage error; fi; else echo mmc error; fi 
 bootdelay=1
-bootscript=echo Running bootscript from mmc ...; source
 console=ttyAMA0
-fdt_addr=0x41000000
-fdt_file=/boot/imx23-olinuxino.dtb
+kernelpart=0x1800
 loadaddr=0x42000000
-loadbootscript=ext2load mmc ${mmcdev}:${mmcpart} ${loadaddr} ${script};
-loadfdt=ext2load mmc ${mmcdev}:${mmcpart} ${fdt_addr} ${fdt_file}
-loaduimage=ext2load mmc ${mmcdev}:${mmcpart} ${loadaddr} ${uimage}
+loaduimage=mmc read ${loadaddr} ${kernelpart} 0x2000
 mmcargs=setenv bootargs console=${console},${baudrate} root=${mmcroot}
-mmcboot=echo Booting from mmc ...; run mmcargs; if test ${boot_fdt} = yes || test ${boot_fdt} = try; then if run loadfdt; then bootm ${loadaddr} - ${fdt_addr}; else if test ${boot_fdt} = try; then bootm; else echo WARN: Cannot load the DT; fi; fi; else bootm; fi;
 mmcdev=0
-mmcpart=3
-mmcroot=/dev/mmcblk0p3 rw rootwait
-script=boot.scr
+mmcroot=/dev/mmcblk0p7 ro rootwait
+script=/boot.scr
 stderr=serial
 stdin=serial
 stdout=serial
-uimage=/boot/uImage
-firstboot=1
-copypart=echo Copy system partition...; mmc read 0x41000000 0x1000 0xC800; mmc write 0x41000000 0x33000 0xC800; echo 25; mmc read 0x41000000 0xD800 0xC800; mmc write 0x41000000 0x3F800 0xC800; echo 50; mmc read 0x41000000 0x1A000 0xC800; mmc write 0x41000000 0x4C000 0xC800; echo 75; mmc read 0x41000000 0x26800 0xC800; mmc write 0x41000000 0x58800 0xC800; echo 100; setenv firstboot 0; saveenv;
+set_system=if test ${system} = 1; then echo Run system 2; setenv kernelpart 0x4000; setenv mmcroot /dev/mmcblk0p3 ro rootwait; else echo Run system 1; fi;
+switch_system=setenv firstboot 0; if test ${system} = 1; then setenv system 0; else setenv system 1; fi; saveenv;
+system=0
+firstboot=0
+checkfail=if test ${firstboot} = 2; then run switch_system; fi; if test ${firstboot} = 1; then setenv firstboot 2; saveenv; fi;
