@@ -1,0 +1,17 @@
+#!/bin/sh
+set -e
+
+if mount -t ext4 -o noatime /dev/mmcblk0p4 /mnt/root-rw; then
+	echo "Mounted ext4 filesystem";
+else
+	echo "Creating ext4 filesystem";
+	mkfs.ext4 /dev/mmcblk0p4;
+	mount -t ext4 -o noatime /dev/mmcblk0p4 /mnt/root-rw;
+fi;
+
+mkdir -p /mnt/root-rw/upper
+mkdir -p /mnt/root-rw/work
+mount -t overlay overlay -olowerdir=/,upperdir=/mnt/root-rw/upper,workdir=/mnt/root-rw/work /mnt/root-ro
+pivot_root /mnt/root-ro /mnt/root-ro/mnt/root-ro
+mount -o move /mnt/root-ro/dev /dev
+mount -o move /mnt/root-ro/mnt/root-rw /mnt/root-rw
