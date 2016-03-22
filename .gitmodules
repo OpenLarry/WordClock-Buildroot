@@ -1,0 +1,6 @@
+[submodule "sub_linux"]
+	path = sub_linux
+	url = git@github.com:OpenLarry/WordClock-Kernel.git
+[submodule "sub_wordclock"]
+	path = sub_wordclock
+	url = git@github.com:OpenLarry/WordClock.git

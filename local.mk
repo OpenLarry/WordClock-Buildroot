@@ -1,0 +1,2 @@
+LINUX_OVERRIDE_SRCDIR = sub_linux
+WORDCLOCK_OVERRIDE_SRCDIR = sub_wordclock
