@@ -7,6 +7,11 @@
 #
 # <name>				<type>	<mode>	<uid>	<gid>	<major>	<minor>	<start>	<inc>	<count>
 /sbin/boot				f	755	0	0	-	-	-	-	-
+/root/.config			d	700	0	0	-	-	-	-	-
+/root/.config/htop			d	700	0	0	-	-	-	-	-
+/root/.config/htop/htoprc			f	600	0	0	-	-	-	-	-
+/usr/sbin/wpa_action				f	755	0	0	-	-	-	-	-
+/usr/sbin/wpa_action				f	755	0	0	-	-	-	-	-
 /usr/sbin/wpa_action				f	755	0	0	-	-	-	-	-
 /etc/autossh/id_rsa				f	600	0	0	-	-	-	-	-
 /etc/init.d/S60autossh				f	755	0	0	-	-	-	-	-
