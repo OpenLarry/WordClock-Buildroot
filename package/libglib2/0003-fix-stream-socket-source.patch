@@ -1,0 +1,16 @@
+diff -Nura libglib2-2.48.1/gio/gsocket.c libglib2-2.48.1.new/gio/gsocket.c
+--- libglib2-2.48.1/gio/gsocket.c	2016-05-20 22:33:11.000000000 +0200
++++ libglib2-2.48.1.new/gio/gsocket.c	2016-05-20 22:33:07.176538486 +0200
+@@ -1099,11 +1099,11 @@
+   switch (g_socket_get_socket_type (G_SOCKET (self)))
+     {
+     case G_SOCKET_TYPE_INVALID:
+-    case G_SOCKET_TYPE_STREAM:
+       g_set_error (error, G_IO_ERROR, G_IO_ERROR_NOT_SUPPORTED,
+                    _("Cannot use datagram operations on a non-datagram "
+                      "socket."));
+       return FALSE;
++    case G_SOCKET_TYPE_STREAM:
+     case G_SOCKET_TYPE_DATAGRAM:
+     case G_SOCKET_TYPE_SEQPACKET:
+       /* Fall through. */
