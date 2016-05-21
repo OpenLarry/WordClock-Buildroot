@@ -9,7 +9,7 @@
 		
 		<link rel="stylesheet" href="http://cdn.jsdelivr.net/bootstrap/3.3.6/css/bootstrap.min.css" type="text/css">
 				
-		<script src="http://cdn.jsdelivr.net/g/jquery@1.11.3,bootstrap@3.3.6"></script>
+		<script src="http://cdn.jsdelivr.net/g/jquery@1.12.4,bootstrap@3.3.6"></script>
 		
 		<!--[if lt IE 9]><script src="http://cdn.jsdelivr.net/g/html5shiv@3.7.2,respond@1.4.2"></script><![endif]-->
 		
@@ -65,13 +65,18 @@
 
 	<body>
 		<div class="container">
-			<h1 class="page-header"><span class="glyphicon glyphicon-scale"></span> Hardware Info</h1>
+			<h1 class="page-header"><span class="glyphicon glyphicon-info-sign"></span> Hardware Info</h1>
+			
+			<ol class="breadcrumb">
+				<li><a href="/">Home</a></li>
+				<li class="active">Hardware Info</li>
+			</ol>
 			
 			<div class="row">
 				<div class="col-sm-3 col-xs-6">
 					<div id="vdd5v" data-group="lradcs" class="panel panel-default">
 					  <div class="panel-heading">
-						<h3 class="panel-title">VDD 5V</h3>
+						<h3 class="panel-title"><span class="glyphicon glyphicon-scale"></span> VDD 5V</h3>
 					  </div>
 					  <div class="panel-body text-center">
 						<small>min. <span class="min-value"></span> V</small><br>
@@ -83,7 +88,7 @@
 				<div class="col-sm-3 col-xs-6">
 					<div id="vddio" data-group="lradcs" class="panel panel-default">
 					  <div class="panel-heading">
-						<h3 class="panel-title">VDD IO</h3>
+						<h3 class="panel-title"><span class="glyphicon glyphicon-scale"></span> VDD IO</h3>
 					  </div>
 					  <div class="panel-body text-center">
 						<small>min. <span class="min-value"></span> V</small><br>
@@ -95,7 +100,7 @@
 				<div class="col-sm-3 col-xs-6">
 					<div id="battery" data-group="lradcs" class="panel panel-default">
 					  <div class="panel-heading">
-						<h3 class="panel-title">Battery</h3>
+						<h3 class="panel-title"><span class="glyphicon glyphicon-flash"></span> Battery</h3>
 					  </div>
 					  <div class="panel-body text-center">
 						<small>min. <span class="min-value"></span> V</small><br>
@@ -107,7 +112,7 @@
 				<div class="col-sm-3 col-xs-6">
 					<div id="temp" data-group="lradcs" class="panel panel-default">
 					  <div class="panel-heading">
-						<h3 class="panel-title">Temperature</h3>
+						<h3 class="panel-title"><span class="glyphicon glyphicon-fire"></span> Temperature</h3>
 					  </div>
 					  <div class="panel-body text-center">
 						<small>min. <span class="min-value"></span>°C</small><br>
@@ -119,7 +124,7 @@
 				<div class="col-xs-12">
 					<div id="brightness" data-group="lradcs" class="panel panel-default">
 					  <div class="panel-heading">
-						<h3 class="panel-title">Brightness</h3>
+						<h3 class="panel-title"><span class="glyphicon glyphicon-adjust"></span> Brightness</h3>
 					  </div>
 					  <div class="panel-body text-center">
 						<div class="progress">
@@ -137,7 +142,7 @@
 				<div class="col-sm-3 col-xs-6">
 					<div id="motion" data-group="gpios" class="panel panel-default">
 					  <div class="panel-heading">
-						<h3 class="panel-title">Motion</h3>
+						<h3 class="panel-title"><span class="glyphicon glyphicon-user"></span> Motion</h3>
 					  </div>
 					  <div class="panel-body">
 						<p class="text-center h1"><span style="color: green;" class="glyphicon glyphicon-ok true"></span><span style="color: red;" class="glyphicon glyphicon-remove false"></span></p>
@@ -147,7 +152,7 @@
 				<div class="col-sm-3 col-xs-6">
 					<div id="button0" data-group="gpios" class="panel panel-default">
 					  <div class="panel-heading">
-						<h3 class="panel-title">Button 0</h3>
+						<h3 class="panel-title"><span class="glyphicon glyphicon-download-alt"></span> Button 0</h3>
 					  </div>
 					  <div class="panel-body">
 						<p class="text-center h1"><span style="color: green;" class="glyphicon glyphicon-ok true"></span><span style="color: red;" class="glyphicon glyphicon-remove false"></span></p>
@@ -157,7 +162,7 @@
 				<div class="col-sm-3 col-xs-6">
 					<div id="button1" data-group="gpios" class="panel panel-default">
 					  <div class="panel-heading">
-						<h3 class="panel-title">Button 1</h3>
+						<h3 class="panel-title"><span class="glyphicon glyphicon-download-alt"></span> Button 1</h3>
 					  </div>
 					  <div class="panel-body">
 						<p class="text-center h1"><span style="color: green;" class="glyphicon glyphicon-ok true"></span><span style="color: red;" class="glyphicon glyphicon-remove false"></span></p>
@@ -167,7 +172,7 @@
 				<div class="col-sm-3 col-xs-6">
 					<div id="button2" data-group="gpios" class="panel panel-default">
 					  <div class="panel-heading">
-						<h3 class="panel-title">Button 2</h3>
+						<h3 class="panel-title"><span class="glyphicon glyphicon-download-alt"></span> Button 2</h3>
 					  </div>
 					  <div class="panel-body">
 						<p class="text-center h1"><span style="color: green;" class="glyphicon glyphicon-ok true"></span><span style="color: red;" class="glyphicon glyphicon-remove false"></span></p>
