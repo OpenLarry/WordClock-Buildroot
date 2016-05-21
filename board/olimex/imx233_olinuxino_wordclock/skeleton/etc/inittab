@@ -20,6 +20,7 @@
 ::sysinit:/bin/mkdir -p /dev/shm
 ::sysinit:/bin/mount -a
 ::sysinit:/bin/hostname -F /etc/hostname
+::sysinit:/usr/sbin/crond
 # now run any rc scripts
 ::sysinit:/etc/init.d/rcS
 
