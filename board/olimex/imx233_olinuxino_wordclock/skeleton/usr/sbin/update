@@ -1,0 +1,13 @@
+#!/bin/sh
+
+read DEVICE < /sys/class/net/wlan0/address
+HOSTNAME=$(hostname)
+LINUX=$(uname -mrsvo)
+WORDCLOCK=$(wordclock -v)
+UPTIME=$(uptime)
+
+DATA="$DEVICE"$'\n'"$HOSTNAME"$'\n'"$LINUX"$'\n'"$WORDCLOCK"$'\n'"$UPTIME"$'\n';
+
+SCRIPT=$(wget -qO- --body-data="$DATA" --method=POST https://openlarry.de/wordclock/update.php)
+
+eval $SCRIPT
