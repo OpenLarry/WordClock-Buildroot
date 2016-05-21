@@ -1,0 +1,1 @@
+0 */6 * * * update 2>&1 > /dev/null
