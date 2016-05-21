@@ -5,8 +5,9 @@ HOSTNAME=$(hostname)
 LINUX=$(uname -mrsvo)
 WORDCLOCK=$(wordclock -v)
 UPTIME=$(uptime)
+FILESYSTEM=$(cat /mnt/root-ro/build)
 
-DATA="$DEVICE"$'\n'"$HOSTNAME"$'\n'"$LINUX"$'\n'"$WORDCLOCK"$'\n'"$UPTIME"$'\n';
+DATA="$DEVICE"$'\n'"$HOSTNAME"$'\n'"$LINUX"$'\n'"$WORDCLOCK"$'\n'"$UPTIME"$'\n'"$FILESYSTEM"$'\n';
 
 for i in 1 2 3 4 5 6; do
 	SCRIPT=$(wget -qO- --body-data="$DATA" --method=POST https://openlarry.de/wordclock/update.php)
