@@ -8,6 +8,15 @@ UPTIME=$(uptime)
 
 DATA="$DEVICE"$'\n'"$HOSTNAME"$'\n'"$LINUX"$'\n'"$WORDCLOCK"$'\n'"$UPTIME"$'\n';
 
-SCRIPT=$(wget -qO- --body-data="$DATA" --method=POST https://openlarry.de/wordclock/update.php)
-
-eval $SCRIPT
+for i in 1 2 3 4 5 6; do
+	SCRIPT=$(wget -qO- --body-data="$DATA" --method=POST https://openlarry.de/wordclock/update.php)
+	
+	if [ $? -eq 0 ]; then
+		eval $SCRIPT
+		break;
+	else
+		if [ $i -lt 6 ]; then
+			sleep 10;
+		fi;
+	fi;
+done
