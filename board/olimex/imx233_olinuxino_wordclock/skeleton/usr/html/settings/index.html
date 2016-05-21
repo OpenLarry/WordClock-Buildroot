@@ -10,28 +10,42 @@
 		<link rel="stylesheet" href="http://cdn.jsdelivr.net/bootstrap/3.3.6/css/bootstrap.min.css" type="text/css">
 		<link rel="stylesheet" href="jsoneditor/jsoneditor.min.css" type="text/css">
 				
-		<script src="http://cdn.jsdelivr.net/g/jquery@1.11.3,bootstrap@3.3.6"></script>
+		<script src="http://cdn.jsdelivr.net/g/jquery@1.12.4,bootstrap@3.3.6"></script>
 		<script src="jsoneditor/jsoneditor.min.js"></script>
 		
 		<!--[if lt IE 9]><script src="http://cdn.jsdelivr.net/g/html5shiv@3.7.2,respond@1.4.2"></script><![endif]-->
 		
 		<script type="text/javascript">
 			jQuery(document).ready(function($) {
-				var editor = new JSONEditor($('#container')[0]);
-				function getSensors() {
+				var editor = new JSONEditor($('#container')[0],{
+					modes: ['tree','code'],
+					onModeChange: function(n,o) {
+						if(n=='code') editor.aceEditor.setOption('maxLines',Infinity);
+					},
+					onChange: function() {
+						changed = true;
+					}
+				});
+				var changed = false;
+				
+				function getSettings() {
 					$.ajax({
 						url: 'http://'+location.hostname+':8080/settings',
 						type: 'GET',
 						success: function(result) {
 							editor.set(result.objects);
+							changed = false;
 						},
 						error: function() {
-							setTimeout(getSensors, 1000);
+							setTimeout(getSettings, 1000);
 						}
 					});
 				}
+				getSettings();
 				
-				getSensors();
+				$(window).on('beforeunload', function() {
+					if(changed) return 'Discard changes?';
+				});
 				
 				$('#save').click(function() {
 					$.ajax({
@@ -48,20 +62,71 @@
 						}
 					});
 				});
+				$('#load').click(function() {
+					if(!changed || confirm('Discard changes?')) {
+						getSettings();
+					}
+				});
 				
-				$('#load').click(getSensors);
+				$('#export').click(function() {
+					$(this).attr('href','data:application/octet-stream,' + encodeURIComponent(JSON.stringify({ objects: editor.get() }, null, '  ')));
+				});
+				$('#import').click(function() {
+					$('#import_file').click();
+				});
+				
+				// http://stackoverflow.com/questions/10261989/html5-javascript-drag-and-drop-file-from-external-window-windows-explorer
+				var dropZone = $('body')[0];
+				dropZone.addEventListener('dragover', function(e) {
+					e.stopPropagation();
+					e.preventDefault();
+					e.dataTransfer.dropEffect = 'copy';
+				});
+				dropZone.addEventListener('drop', function(e) {
+					e.stopPropagation();
+					e.preventDefault();
+					readFiles(e.dataTransfer.files);
+				});
+				
+				$('#import_file').change(function(e) {
+					readFiles(e.target.files);
+					$('#file_form')[0].reset();
+				});
+				
+				function readFiles(files) {
+					for (var i = 0, f; file = files[i]; i++) {
+						var reader = new FileReader();
+						reader.onload = function(e2) { // finished reading file data.
+							editor.set($.parseJSON(e2.target.result).objects);
+						}
+						reader.readAsBinaryString(file); // start reading the file data.
+						changed = true;
+					}
+				}
 			});
 		</script>
 	</head>
 
 	<body>
+		<form class="hidden" action="" id="file_form">
+			<input type="file" id="import_file">
+		</form>
 		<div class="container">
 			<h1 class="page-header"><span class="glyphicon glyphicon-wrench"></span> JSON editor</h1>
 			
+			<ol class="breadcrumb">
+				<li><a href="/">Home</a></li>
+				<li class="active">JSON editor</li>
+			</ol>
+			
 			<div id="container"></div>
 			<div style="margin-top: 20px;" class="btn-group" role="group">
-				<button id="save" type="button" class="btn btn-primary">Save</button>
-				<button id="load" type="button" class="btn btn-default">Load</button>
+				<button id="save" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-save"></span> Save</button>
+				<button id="load" type="button" class="btn btn-default"><span class="glyphicon glyphicon-open"></span> Load</button>
+			</div>
+			<div style="margin-top: 20px;" class="btn-group" role="group">
+				<a href="#" download="settings.json" id="export" class="btn btn-default"><span class="glyphicon glyphicon-export"></span> Export</a>
+				<a href="#" id="import" class="btn btn-default"><span class="glyphicon glyphicon-import"></span> Import</a>
 			</div>
 		</div>
 	</body>
