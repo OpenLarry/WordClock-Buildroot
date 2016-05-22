@@ -6,6 +6,9 @@ set -e
 
 case "$1" in
   start)
+	# boot successful
+	echo timer > /sys/class/leds/green/trigger
+	
 	if fw_printenv firstboot | grep -q 2; then
 		echo "First boot after system upgrade";
 		fw_setenv firstboot 0;
