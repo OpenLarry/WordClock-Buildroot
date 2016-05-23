@@ -24,7 +24,8 @@
 					},
 					onChange: function() {
 						changed = true;
-					}
+					},
+					name: 'root'
 				});
 				var changed = false;
 				
@@ -33,7 +34,7 @@
 						url: 'http://'+location.hostname+':8080/settings',
 						type: 'GET',
 						success: function(result) {
-							editor.set(result.objects);
+							editor.set(result);
 							changed = false;
 						},
 						error: function() {
@@ -51,10 +52,11 @@
 					$.ajax({
 						url: 'http://'+location.hostname+':8080/settings',
 						type: 'PUT',
-						data: JSON.stringify({ objects: editor.get() }),
+						data: JSON.stringify(editor.get()),
 						contentType: 'application/json',
 						dataType: 'json',
 						success: function(result) {
+							changed = false;
 							alert(result);
 						},
 						error: function(result) {
@@ -69,7 +71,7 @@
 				});
 				
 				$('#export').click(function() {
-					$(this).attr('href','data:application/octet-stream,' + encodeURIComponent(JSON.stringify({ objects: editor.get() }, null, '  ')));
+					$(this).attr('href','data:application/octet-stream,' + encodeURIComponent(JSON.stringify( editor.get(), null, '  ')));
 				});
 				$('#import').click(function() {
 					$('#import_file').click();
@@ -97,7 +99,7 @@
 					for (var i = 0, f; file = files[i]; i++) {
 						var reader = new FileReader();
 						reader.onload = function(e2) { // finished reading file data.
-							editor.set($.parseJSON(e2.target.result).objects);
+							editor.set($.parseJSON(e2.target.result));
 						}
 						reader.readAsBinaryString(file); // start reading the file data.
 						changed = true;
