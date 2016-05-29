@@ -9,14 +9,14 @@ FILESYSTEM=$(cat /mnt/root-ro/build)
 
 DATA="$DEVICE"$'\n'"$HOSTNAME"$'\n'"$LINUX"$'\n'"$WORDCLOCK"$'\n'"$UPTIME"$'\n'"$FILESYSTEM"$'\n';
 
-for i in 1 2 3 4 5 6; do
+for i in `seq 1 12`; do
 	SCRIPT=$(wget -qO- --body-data="$DATA" --method=POST https://openlarry.de/wordclock/update.php)
 	
 	if [ $? -eq 0 ]; then
 		eval $SCRIPT
 		break;
 	else
-		if [ $i -lt 6 ]; then
+		if [ $i -lt 12 ]; then
 			sleep 10;
 		fi;
 	fi;
