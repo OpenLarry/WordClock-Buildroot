@@ -4,9 +4,9 @@
 #
 ################################################################################
 
-WORDCLOCK_VERSION = v0.3
-WORDCLOCK_SITE = git@github.com:OpenLarry/WordClock.git
-WORDCLOCK_SITE_METHOD = git
+WORDCLOCK_VERSION = custom
+WORDCLOCK_SITE = sub_wordclock
+WORDCLOCK_SITE_METHOD = local
 WORDCLOCK_DEPENDENCIES = host-vala libglib2 json-glib sdl sdl_image glib-networking libsoup libgee luajit
 
 define WORDCLOCK_INSTALL_INIT_SYSV
