@@ -1,5 +1,10 @@
 #!/bin/sh
 
+if [ ! -f /sys/class/net/wlan0/address ]; then
+	echo "Update: No wifi dongle! Aborting.";
+	exit;
+fi;
+
 read DEVICE < /sys/class/net/wlan0/address
 HOSTNAME=$(hostname)
 LINUX=$(uname -mrsvo)
