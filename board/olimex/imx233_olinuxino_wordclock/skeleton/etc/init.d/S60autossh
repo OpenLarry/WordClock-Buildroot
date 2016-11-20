@@ -9,6 +9,10 @@ PIDFILE=/var/run/autossh.pid
 case "$1" in
   start)
 	echo "Starting autossh..."
+	if [ ! -f /sys/class/net/wlan0/address ]; then
+		echo "Autossh: No wifi dongle! Aborting.";
+		exit;
+	fi;
 	
 	read MAC < /sys/class/net/wlan0/address
 	ADD=$((0x${MAC:13:1}${MAC:15:2}))
