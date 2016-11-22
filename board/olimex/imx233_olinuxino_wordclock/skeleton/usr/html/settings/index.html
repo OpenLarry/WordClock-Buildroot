@@ -7,106 +7,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		
-		<link rel="stylesheet" href="http://cdn.jsdelivr.net/bootstrap/3.3.6/css/bootstrap.min.css" type="text/css">
-		<link rel="stylesheet" href="jsoneditor/jsoneditor.min.css" type="text/css">
-				
-		<script src="http://cdn.jsdelivr.net/g/jquery@1.12.4,bootstrap@3.3.6"></script>
-		<script src="jsoneditor/jsoneditor.min.js"></script>
-		
-		<!--[if lt IE 9]><script src="http://cdn.jsdelivr.net/g/html5shiv@3.7.2,respond@1.4.2"></script><![endif]-->
-		
-		<script type="text/javascript">
-			jQuery(document).ready(function($) {
-				var editor = new JSONEditor($('#container')[0],{
-					modes: ['tree','code'],
-					onModeChange: function(n,o) {
-						if(n=='code') editor.aceEditor.setOption('maxLines',Infinity);
-					},
-					onChange: function() {
-						changed = true;
-					},
-					name: 'root'
-				});
-				var changed = false;
-				
-				function getSettings() {
-					$.ajax({
-						url: 'http://'+location.hostname+':8080/settings',
-						type: 'GET',
-						success: function(result) {
-							editor.set(result);
-							changed = false;
-						},
-						error: function() {
-							setTimeout(getSettings, 1000);
-						}
-					});
-				}
-				getSettings();
-				
-				$(window).on('beforeunload', function() {
-					if(changed) return 'Discard changes?';
-				});
-				
-				$('#save').click(function() {
-					$.ajax({
-						url: 'http://'+location.hostname+':8080/settings',
-						type: 'PUT',
-						data: JSON.stringify(editor.get()),
-						contentType: 'application/json',
-						dataType: 'json',
-						success: function(result) {
-							changed = false;
-							alert(result);
-						},
-						error: function(result) {
-							alert(result.responseText);
-						}
-					});
-				});
-				$('#load').click(function() {
-					if(!changed || confirm('Discard changes?')) {
-						getSettings();
-					}
-				});
-				
-				$('#export').click(function() {
-					$(this).attr('href','data:application/octet-stream,' + encodeURIComponent(JSON.stringify( editor.get(), null, '  ')));
-				});
-				$('#import').click(function() {
-					$('#import_file').click();
-				});
-				
-				// http://stackoverflow.com/questions/10261989/html5-javascript-drag-and-drop-file-from-external-window-windows-explorer
-				var dropZone = $('body')[0];
-				dropZone.addEventListener('dragover', function(e) {
-					e.stopPropagation();
-					e.preventDefault();
-					e.dataTransfer.dropEffect = 'copy';
-				});
-				dropZone.addEventListener('drop', function(e) {
-					e.stopPropagation();
-					e.preventDefault();
-					readFiles(e.dataTransfer.files);
-				});
-				
-				$('#import_file').change(function(e) {
-					readFiles(e.target.files);
-					$('#file_form')[0].reset();
-				});
-				
-				function readFiles(files) {
-					for (var i = 0, f; file = files[i]; i++) {
-						var reader = new FileReader();
-						reader.onload = function(e2) { // finished reading file data.
-							editor.set($.parseJSON(e2.target.result));
-						}
-						reader.readAsBinaryString(file); // start reading the file data.
-						changed = true;
-					}
-				}
-			});
-		</script>
+		<link rel="stylesheet" href="/libs/bootstrap/css/bootstrap.min.css" type="text/css">
+		<link rel="stylesheet" href="/libs/jsoneditor/jsoneditor.min.css" type="text/css">
 	</head>
 
 	<body>
@@ -155,5 +57,9 @@
 				</div>
 			</div>
 		</div>
+				
+		<script src="/libs/jquery-3.1.1.min.js"></script>
+		<script src="/libs/jsoneditor/jsoneditor.min.js"></script>
+		<script src="script.js"></script>
 	</body>
 </html>
