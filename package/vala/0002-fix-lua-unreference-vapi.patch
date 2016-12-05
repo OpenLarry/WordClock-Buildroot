@@ -1,0 +1,12 @@
+Fix vapi for Lua.LuaVM.unreference()
+diff -Nur a/vapi/lua.vapi b/vapi/lua.vapi
+--- a/vapi/lua.vapi	2016-09-17 20:37:00.000000000 +0200
++++ b/vapi/lua.vapi	2016-12-05 12:06:53.000000000 +0100
+@@ -406,6 +406,6 @@
+ 		[CCode (cname = "luaL_ref", cheader_filename = "lauxlib.h")]
+ 		public int reference (int t);
+ 		[CCode (cname = "luaL_unref", cheader_filename = "lauxlib.h")]
+-		public void unreference (int t);
++		public void unreference (int t, int index);
+ 	}
+ }
