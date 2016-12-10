@@ -26,9 +26,9 @@
 						<h3 class="panel-title"><span class="glyphicon glyphicon-scale"></span> VDD 5V</h3>
 					  </div>
 					  <div class="panel-body text-center">
-						<small>min. <span class="min-value"></span> V</small><br>
-						<span class="h2"><span class="value">5</span> V</span><br>
-						<small>max. <span class="max-value"></span> V</small>
+						<small>min. <span class="min value"></span> V</small><br>
+						<span class="h2"><span class="median value">5</span> V</span><br>
+						<small>max. <span class="max value"></span> V</small>
 					  </div>
 					</div>
 				</div>
@@ -38,9 +38,9 @@
 						<h3 class="panel-title"><span class="glyphicon glyphicon-scale"></span> VDD IO</h3>
 					  </div>
 					  <div class="panel-body text-center">
-						<small>min. <span class="min-value"></span> V</small><br>
-						<span class="h2"><span class="value">5</span> V</span><br>
-						<small>max. <span class="max-value"></span> V</small>
+						<small>min. <span class="min value"></span> V</small><br>
+						<span class="h2"><span class="median value">5</span> V</span><br>
+						<small>max. <span class="max value"></span> V</small>
 					  </div>
 					</div>
 				</div>
@@ -50,9 +50,9 @@
 						<h3 class="panel-title"><span class="glyphicon glyphicon-flash"></span> Battery</h3>
 					  </div>
 					  <div class="panel-body text-center">
-						<small>min. <span class="min-value"></span> V</small><br>
-						<span class="h2"><span class="value">4</span> V</span><br>
-						<small>max. <span class="max-value"></span> V</small>
+						<small>min. <span class="min value"></span> V</small><br>
+						<span class="h2"><span class="median value">4</span> V</span><br>
+						<small>max. <span class="max value"></span> V</small>
 					  </div>
 					</div>
 				</div>
@@ -62,9 +62,9 @@
 						<h3 class="panel-title"><span class="glyphicon glyphicon-fire"></span> Temperature</h3>
 					  </div>
 					  <div class="panel-body text-center">
-						<small>min. <span class="min-value"></span>°C</small><br>
-						<span class="h2"><span class="value">20</span>°C</span><br>
-						<small>max. <span class="max-value"></span>°C</small>
+						<small>min. <span class="min value"></span>°C</small><br>
+						<span class="h2"><span class="median value">20</span>°C</span><br>
+						<small>max. <span class="max value"></span>°C</small>
 					  </div>
 					</div>
 				</div>
@@ -74,14 +74,14 @@
 						<h3 class="panel-title"><span class="glyphicon glyphicon-adjust"></span> Brightness</h3>
 					  </div>
 					  <div class="panel-body text-center">
-						<div class="progress">
-						  <div class="progress-bar" role="progressbar" style="width: 60%;">
-							<span class="value">60</span>V
+						<div class="progress progress-striped">
+						  <div class="median progress-bar" role="progressbar" style="width: 60%;">
+							<span class="median value">60</span>V
 						  </div>
 						</div>
 						<div style="margin-top: -20px;">
-						  <small>min. <span class="min-value"></span>V</small>, 
-						  <small>max. <span class="max-value"></span>V</small>
+						  <small>min. <span class="min value"></span>V</small>, 
+						  <small>max. <span class="max value"></span>V</small>
 						</div>
 					  </div>
 					</div>
@@ -123,6 +123,42 @@
 					  </div>
 					  <div class="panel-body">
 						<p class="text-center h1"><span style="color: green;" class="glyphicon glyphicon-ok true"></span><span style="color: red;" class="glyphicon glyphicon-remove false"></span></p>
+					  </div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-xs-12">
+					<div id="cpuload" data-group="system" class="panel panel-default">
+					  <div class="panel-heading">
+						<h3 class="panel-title"><span class="glyphicon glyphicon-dashboard"></span> CPU</h3>
+					  </div>
+					  <div class="panel-body text-center">
+						<p>
+						  <span class="label label-success">user</span>
+						  <span class="label label-danger">system</span>
+						  <span class="label label-warning">softirq</span>
+						  <span class="label label-info">nice + irq + iowait</span>
+						</p>
+						<div class="progress progress-striped">
+						  <div class="progress-bar progress-bar-success user" style="width: 0%"><span class="user value">0</span>%</div>
+						  <div class="progress-bar progress-bar-danger system" style="width: 0%"><span class="system value">0</span>%</div>
+						  <div class="progress-bar progress-bar-warning softirq" style="width: 0%"><span class="softirq value">0</span>%</div>
+						  <div class="progress-bar progress-bar-info nice irq iowait" style="width: 0%"><span class="nice irq iowait value">0</span>%</div>
+						</div>
+					  </div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-xs-12">
+					<div id="memoryusage" data-group="system" class="panel panel-default">
+					  <div class="panel-heading">
+						<h3 class="panel-title"><span class="glyphicon glyphicon-inbox"></span> Memory</h3>
+					  </div>
+					  <div class="panel-body text-center">
+						<p>
+						  <span class="label label-success">used</span>
+						</p>
+						<div class="progress progress-striped">
+						  <div class="progress-bar progress-bar-success available total" style="width: 0%"><span class="available total value">0</span> MB</div>
+						</div>
 					  </div>
 					</div>
 				</div>
