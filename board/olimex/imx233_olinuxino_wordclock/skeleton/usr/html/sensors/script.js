@@ -6,6 +6,10 @@ jQuery(document).ready(function($) {
 			$('div.row').stop().fadeTo(500, 1);
 			
 			var result = $.parseJSON(e.data);
+			
+			var rest = 0;
+			var mem_p = 100;
+			var mem_v = 0;
 		
 			for(var g in result) {
 				for(var i in result[g]) {
@@ -17,21 +21,34 @@ jQuery(document).ready(function($) {
 					}else if(typeof(obj['value']) == "boolean" && !obj['value']) {
 						$('#'+i+' .true').hide();
 						$('#'+i+' .false').show();
-					}else if(typeof(obj["median"]) == "number") {
-						if(i == "brightness") {
-							$('#'+i+' .progress-bar').css({ width: obj["median"]/33+"%"});
+					}else{
+						for(var v in obj) {
+							var value_p = obj[v];
+							var value_v = obj[v];
+							
+							if(i == "cpuload") {
+								value_p *= 100;
+								value_v *= 100;
+							}
+							
+							if(i == "brightness")
+								value_p /= 33;
+							else if(v == "total")
+								value_p = 100-(mem_p /= value_p);
+							else if(v == "available")
+								value_p = 100-(mem_p *= value_p);
+							
+							if(i == "temp") value_v *= 1000;
+							if(["min","max","median","mean","total","available"].indexOf(v) >= 0) value_v = Math.round(value_v)/1000;
+							if(["nice","irq","iowait"].indexOf(v) >= 0) value_v = rest += value_v;
+							if(v == "total") value_v = mem_v += value_v;
+							if(v == "available") value_v = mem_v -= value_v;
+							if(["user","nice","system","idle","irq","softirq","iowait","total","available"].indexOf(v) >= 0) value_v = Math.round(value_v);
+							
+							
+							$('#'+i+' .progress-bar.'+v).css({ width: value_p+"%"});
+							$('#'+i+' .value.'+v).text(value_v);
 						}
-						if(i == "temp") {
-							obj["min"] = obj["min"]*1000;
-							obj["max"] = obj["max"]*1000;
-							obj["median"] = obj["median"]*1000;
-						}
-						obj["min"] = Math.round(obj["min"])/1000;
-						obj["max"] = Math.round(obj["max"])/1000;
-						obj["median"] = Math.round(obj["median"])/1000;
-						$('#'+i+' .min-value').text(obj["min"]);
-						$('#'+i+' .max-value').text(obj["max"]);
-						$('#'+i+' .value').text(obj["median"]);
 					}
 				}
 			}
