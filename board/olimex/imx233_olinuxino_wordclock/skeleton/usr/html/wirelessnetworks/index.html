@@ -1,0 +1,117 @@
+<!DOCTYPE html> 
+<html lang="de">
+	<head>
+		<title>WordClock - Wireless Networks</title>
+		<meta charset="utf-8">
+		<meta name="robots" content="noindex, nofollow">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		
+		<link rel="stylesheet" href="/libs/bootstrap/css/bootstrap.min.css" type="text/css">
+		
+		<link rel="shortcut icon" sizes="16x16 32x32" href="/favicon.ico" type="image/x-icon">
+		<link rel="icon" sizes="16x16 32x32" href="/favicon.ico" type="image/x-icon">
+		<link rel="shortcut icon" sizes="140x140" href="/favicon.png" type="image/png">
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+	</head>
+
+	<body>
+		<div class="container">
+			<h1 class="page-header"><span class="glyphicon glyphicon-signal"></span> Wireless Networks</h1>
+			
+			<ol class="breadcrumb">
+				<li><a href="/">Home</a></li>
+				<li class="active">Wireless Networks</li>
+			</ol>
+			
+			<div class="row">
+				<div id="networks">
+				</div>
+				
+				<div id="add_network" class="col-lg-3 col-md-4 col-sm-6">
+					<div class="panel panel-success">
+					  <div class="panel-heading">
+						<h3 class="panel-title"><span class="glyphicon glyphicon-plus"></span> Add network</h3>
+					  </div>
+					  <div class="panel-body text-center">
+						<form class="form-horizontal">
+						  <div class="form-group">
+							<label class="col-sm-3 control-label">SSID</label>
+							<div class="col-sm-9">
+							  <input type="text" name="ssid" class="ssid form-control" placeholder="Network name">
+							</div>
+						  </div>
+						  <div class="form-group">
+							<label class="col-sm-3 control-label">Key</label>
+							<div class="col-sm-9">
+							  <input type="password" name="psk" class="psk form-control" placeholder="Passphrase">
+							</div>
+						  </div>
+						  <div class="form-group">
+							<div class="col-sm-offset-3 col-sm-9">
+							  <div class="checkbox">
+								<label>
+								  <input type="checkbox" class="enabled" name="enabled" value="true"> Enabled
+								</label>
+							  </div>
+							</div>
+						  </div>
+						  <div class="form-group">
+							<div class="col-sm-offset-3 col-sm-9">
+							  <button type="button" title="Add" class="btn btn-success add"><span class="glyphicon glyphicon-plus"></span></button>
+							</div>
+						  </div>
+						</form>
+					  </div>
+					</div>
+				</div>
+				
+				<div style="display: none;" id="network" class="network col-lg-3 col-md-4 col-sm-6">
+					<div class="panel panel-default">
+					  <div class="panel-heading">
+						<span style="display: none;" class="label label-success pull-right current">Connected</span>
+						<h3 class="panel-title"><span class="glyphicon glyphicon-edit"></span> Network <span class="id">0</span></h3>
+					  </div>
+					  <div class="panel-body text-center">
+						<form class="form-horizontal">
+						  <div class="form-group">
+							<label class="col-sm-3 control-label">SSID</label>
+							<div class="col-sm-9">
+							  <input type="text" name="ssid" class="ssid form-control" placeholder="Network name">
+							</div>
+						  </div>
+						  <div class="form-group">
+							<label class="col-sm-3 control-label">Key</label>
+							<div class="col-sm-9">
+							  <input type="password" name="psk" class="psk form-control" placeholder="Passphrase">
+							</div>
+						  </div>
+						  <div class="form-group">
+							<div class="col-sm-offset-3 col-sm-9">
+							  <div class="checkbox">
+								<label>
+								  <input type="checkbox" class="enabled" name="enabled" value="true"> Enabled
+								</label>
+							  </div>
+							</div>
+						  </div>
+						  <div class="form-group">
+							<div class="col-sm-offset-3 col-sm-9">
+							  <button type="button" title="Edit" class="btn btn-primary edit"><span class="glyphicon glyphicon-pencil"></span></button>
+							  <button type="button" title="Remove" class="btn btn-danger remove"><span class="glyphicon glyphicon-minus"></span></button>
+							</div>
+						  </div>
+						</form>
+					  </div>
+					</div>
+				</div>
+			</div>
+		</div>
+				
+		<script src="/libs/jquery-3.1.1.min.js"></script>
+		<script src="script.js"></script>
+	</body>
+</html>
