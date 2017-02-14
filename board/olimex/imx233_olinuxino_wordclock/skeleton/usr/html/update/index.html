@@ -1,0 +1,85 @@
+<!DOCTYPE html> 
+<html lang="de">
+	<head>
+		<title>WordClock - Update</title>
+		<meta charset="utf-8">
+		<meta name="robots" content="noindex, nofollow">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		
+		<link rel="stylesheet" href="/libs/bootstrap/css/bootstrap.min.css" type="text/css">
+		
+		<link rel="shortcut icon" sizes="16x16 32x32" href="/favicon.ico" type="image/x-icon">
+		<link rel="icon" sizes="16x16 32x32" href="/favicon.ico" type="image/x-icon">
+		<link rel="shortcut icon" sizes="140x140" href="/favicon.png" type="image/png">
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+	</head>
+
+	<body>
+		<form class="hidden" id="file_form">
+			<input type="file" id="update_file">
+		</form>
+		<div class="container">
+			<h1 class="page-header"><span class="glyphicon glyphicon-refresh"></span> Update</h1>
+			
+			<ol class="breadcrumb">
+				<li><a href="/">Home</a></li>
+				<li class="active">Update</li>
+			</ol>
+			
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><span class="glyphicon glyphicon-info-sign"></span> System info</h3>
+						</div>
+						<div class="panel-body">
+							<table class="table">
+								<tbody>
+									<tr>
+										<th>WordClock version</th>
+										<td class="version"></td>
+									</tr>
+									<tr>
+										<th>Filesystem version</th>
+										<td class="filesystem"></td>
+									</tr>
+									<tr>
+										<th>Kernel version</th>
+										<td class="kernel-full"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><span class="glyphicon glyphicon-cog"></span> Action</h3>
+						</div>
+						<div class="panel-body text-center">
+							<div class="progress">
+								<div class="progress-bar progress-bar-striped" id="progressbar" role="progressbar" style="width: 0%"></div>
+							</div>
+							<p>The system is automatically restarted after the firmware update!</p>
+							<div class="btn-group" role="group">
+								<button id="load" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-open"></span> Select firmware file and start flashing</button>
+								<button id="cancel" type="button" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<script src="/libs/jquery-3.1.1.min.js"></script>
+		<script src="script.js"></script>
+	</body>
+</html>
