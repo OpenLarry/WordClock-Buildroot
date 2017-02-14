@@ -1,0 +1,61 @@
+#!/bin/sh
+set -e
+
+if fw_printenv system | grep -q system=0; then
+	echo "Patch system 2..."
+	KERNEL=6
+	ROOTFS=3
+	SYSTEM=1
+elif fw_printenv system | grep -q system=1; then
+	echo "Patch system 1..."
+	KERNEL=5
+	ROOTFS=7
+	SYSTEM=0
+else
+	exit 1
+fi;
+
+BOOTLOADER=false
+PARTS=false
+
+while [ "$1" != '' ]
+  do
+    [ $1 == "-b" ] && BOOTLOADER=true && shift && continue # flash bootloader
+    [ $1 == "-p" ] && PARTS=true && shift && continue # do not excepte whole image, only relevant parts of it
+done
+
+if $PARTS; then
+	if $BOOTLOADER; then
+		echo "Flash boot loader..."
+		dd bs=512 count=2048 of=/dev/mmcblk0p1
+	fi;
+	
+	echo "Flash kernel image..."
+	dd bs=512 count=8192 of=/dev/mmcblk0p${KERNEL}
+
+	echo "Flash root filesystem..."
+	dd bs=512 of=/dev/mmcblk0p${ROOTFS}
+else
+	if $BOOTLOADER; then
+		echo "Flash boot loader..."
+		dd bs=512 skip=2048 count=2048 of=/dev/mmcblk0p1
+
+		echo "Flash kernel image..."
+		dd bs=512 skip=2048 count=8192 of=/dev/mmcblk0p${KERNEL}
+	else
+		echo "Flash kernel image..."
+		dd bs=512 skip=6144 count=8192 of=/dev/mmcblk0p${KERNEL}
+	fi;
+
+	echo "Flash root filesystem..."
+	dd bs=512 skip=12288 of=/dev/mmcblk0p${ROOTFS}
+fi;
+
+# Ignore SIGTERM from here
+trap '' SIGTERM
+
+echo "Switch startup system..."
+fw_setenv system ${SYSTEM} && fw_setenv firstboot 1
+
+echo "Reboot!"
+reboot
