@@ -27,28 +27,28 @@ done
 if $PARTS; then
 	if $BOOTLOADER; then
 		echo "Flash boot loader..."
-		dd bs=512 count=2048 of=/dev/mmcblk0p1
+		dd bs=512 count=2048 of=/dev/mmcblk0p1 iflag=fullblock
 	fi;
 	
 	echo "Flash kernel image..."
-	dd bs=512 count=8192 of=/dev/mmcblk0p${KERNEL}
+	dd bs=512 count=8192 of=/dev/mmcblk0p${KERNEL} iflag=fullblock
 
 	echo "Flash root filesystem..."
-	dd bs=512 of=/dev/mmcblk0p${ROOTFS}
+	dd bs=512 of=/dev/mmcblk0p${ROOTFS} iflag=fullblock
 else
 	if $BOOTLOADER; then
 		echo "Flash boot loader..."
-		dd bs=512 skip=2048 count=2048 of=/dev/mmcblk0p1
+		dd bs=512 skip=2048 count=2048 of=/dev/mmcblk0p1 iflag=fullblock
 
 		echo "Flash kernel image..."
-		dd bs=512 skip=2048 count=8192 of=/dev/mmcblk0p${KERNEL}
+		dd bs=512 skip=2048 count=8192 of=/dev/mmcblk0p${KERNEL} iflag=fullblock
 	else
 		echo "Flash kernel image..."
-		dd bs=512 skip=6144 count=8192 of=/dev/mmcblk0p${KERNEL}
+		dd bs=512 skip=6144 count=8192 of=/dev/mmcblk0p${KERNEL} iflag=fullblock
 	fi;
 
 	echo "Flash root filesystem..."
-	dd bs=512 skip=12288 of=/dev/mmcblk0p${ROOTFS}
+	dd bs=512 skip=12288 of=/dev/mmcblk0p${ROOTFS} iflag=fullblock
 fi;
 
 # Ignore SIGTERM from here
