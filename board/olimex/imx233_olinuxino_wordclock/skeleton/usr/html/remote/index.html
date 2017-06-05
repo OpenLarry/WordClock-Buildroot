@@ -1,0 +1,191 @@
+<!DOCTYPE html> 
+<html lang="de">
+	<head>
+		<title>WordClock - Remote</title>
+		<meta charset="utf-8">
+		<meta name="robots" content="noindex, nofollow">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		
+		<link rel="stylesheet" href="/libs/bootstrap/css/bootstrap.min.css" type="text/css">
+		
+		<style type="text/css">
+			.col-xs-3 {
+				padding: 0;
+				text-align: center;
+			}
+			.remote {
+				height: 50px;
+				margin: 5px 0;
+			}
+
+			/* https://bootsnipp.com/snippets/featured/circle-button */
+			.btn-circle {
+			  width: 70px;
+			  height: 70px;
+			  padding: 10px 10px;
+			  text-align: center;
+			  font-size: 24px;
+			  line-height: 1.33;
+			  border-radius: 35px;
+			}
+			.btn-circle.small-text {
+				font-size: 12px;
+			}
+
+		</style>
+		
+		<link rel="shortcut icon" sizes="16x16 32x32" href="/favicon.ico" type="image/x-icon">
+		<link rel="icon" sizes="16x16 32x32" href="/favicon.ico" type="image/x-icon">
+		<link rel="shortcut icon" sizes="140x140" href="/favicon.png" type="image/png">
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+	</head>
+
+	<body>
+		<div class="container">
+			<h1 class="page-header"><span class="glyphicon glyphicon-phone"></span> Remote</h1>
+			
+			<ol class="breadcrumb">
+				<li><a href="/">Home</a></li>
+				<li class="active">Remote</li>
+			</ol>
+			
+			<div class="row">
+				<div class="col-md-6 col-md-offset-3">
+					<div class="jumbotron">
+						<form>
+							<div class="row">
+								<div class="col-xs-3">
+									<button type="button" class="btn btn-default btn-circle remote" data-signal="remote,UP">
+										<span class="glyphicon glyphicon-chevron-up"></span>
+									</button>
+								</div>
+								<div class="col-xs-3">
+									<button type="button" class="btn btn-default btn-circle remote" data-signal="remote,DOWN">
+										<span class="glyphicon glyphicon-chevron-down"></span>
+									</button>
+								</div>
+								<div class="col-xs-3">
+									<button style="background-color: #c4c4c4;" type="button" class="btn btn-default btn-circle remote" data-signal="remote,OFF">
+										OFF
+									</button>
+								</div>
+								<div class="col-xs-3">
+									<button style="background-color: #ff8888;" type="button" class="btn btn-default btn-circle remote" data-signal="remote,ON">
+										ON
+									</button>
+								</div>
+								<div class="col-xs-3">
+									<button style="background-color: #ff8888;" type="button" class="btn btn-default btn-circle remote" data-signal="remote,R">
+										R
+									</button>
+								</div>
+								<div class="col-xs-3">
+									<button style="background-color: #88ff88;" type="button" class="btn btn-default btn-circle remote" data-signal="remote,G">
+										G
+									</button>
+								</div>
+								<div class="col-xs-3">
+									<button style="background-color: #8888ff;" type="button" class="btn btn-default btn-circle remote" data-signal="remote,B">
+										B
+									</button>
+								</div>
+								<div class="col-xs-3">
+									<button style="background-color: #ffffff;" type="button" class="btn btn-default btn-circle remote" data-signal="remote,W">
+										W
+									</button>
+								</div>
+								<div class="col-xs-3">
+									<button style="background-color: #ffb98a;" type="button" class="btn btn-default btn-circle remote" data-signal="remote,R1">
+										&nbsp;
+									</button>
+								</div>
+								<div class="col-xs-3">
+									<button style="background-color: #8affb9;" type="button" class="btn btn-default btn-circle remote" data-signal="remote,G1">
+										&nbsp;
+									</button>
+								</div>
+								<div class="col-xs-3">
+									<button style="background-color: #b98aff;" type="button" class="btn btn-default btn-circle remote" data-signal="remote,B1">
+										&nbsp;
+									</button>
+								</div>
+								<div class="col-xs-3">
+									<button style="background-color: #c4c4c4;" type="button" class="btn btn-default btn-circle remote small-text" data-signal="remote,FLASH">
+										FLASH
+									</button>
+								</div>
+								<div class="col-xs-3">
+									<button style="background-color: #ffe88a;" type="button" class="btn btn-default btn-circle remote" data-signal="remote,R2">
+										&nbsp;
+									</button>
+								</div>
+								<div class="col-xs-3">
+									<button style="background-color: #8affe8;" type="button" class="btn btn-default btn-circle remote" data-signal="remote,G2">
+										&nbsp;
+									</button>
+								</div>
+								<div class="col-xs-3">
+									<button style="background-color: #e88aff;" type="button" class="btn btn-default btn-circle remote" data-signal="remote,B2">
+										&nbsp;
+									</button>
+								</div>
+								<div class="col-xs-3">
+									<button style="background-color: #c4c4c4;" type="button" class="btn btn-default btn-circle remote small-text" data-signal="remote,STROBE">
+										STROBE
+									</button>
+								</div>
+								<div class="col-xs-3">
+									<button style="background-color: #e8ff8a;" type="button" class="btn btn-default btn-circle remote" data-signal="remote,R3">
+										&nbsp;
+									</button>
+								</div>
+								<div class="col-xs-3">
+									<button style="background-color: #8ae8ff;" type="button" class="btn btn-default btn-circle remote" data-signal="remote,G3">
+										&nbsp;
+									</button>
+								</div>
+								<div class="col-xs-3">
+									<button style="background-color: #ff8ae8;" type="button" class="btn btn-default btn-circle remote" data-signal="remote,B3">
+										&nbsp;
+									</button>
+								</div>
+								<div class="col-xs-3">
+									<button style="background-color: #c4c4c4;" type="button" class="btn btn-default btn-circle remote small-text" data-signal="remote,FADE">
+										FADE
+									</button>
+								</div>
+								<div class="col-xs-3">
+									<button style="background-color: #b9ff8a;" type="button" class="btn btn-default btn-circle remote" data-signal="remote,R4">
+										&nbsp;
+									</button>
+								</div>
+								<div class="col-xs-3">
+									<button style="background-color: #8ab9ff;" type="button" class="btn btn-default btn-circle remote" data-signal="remote,G4">
+										&nbsp;
+									</button>
+								</div>
+								<div class="col-xs-3">
+									<button style="background-color: #ff8ab9;" type="button" class="btn btn-default btn-circle remote" data-signal="remote,B4">
+										&nbsp;
+									</button>
+								</div>
+								<div class="col-xs-3">
+									<button style="background-color: #c4c4c4;" type="button" class="btn btn-default btn-circle remote small-text" data-signal="remote,SMOOTH">
+										SMOOTH
+									</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+				
+		<script src="/libs/jquery-3.1.1.min.js"></script>
+		<script src="script.js"></script>
+	</body>
+</html>
