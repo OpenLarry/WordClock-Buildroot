@@ -29,7 +29,7 @@
 			
 			<div class="row">
 				<div class="col-lg-2 col-sm-4 col-xs-6">
-					<div id="vdd5v" data-group="lradcs" class="panel panel-default">
+					<div data-group="lradcs" class="vdd5v panel panel-default">
 					  <div class="panel-heading">
 						<h3 class="panel-title"><span class="glyphicon glyphicon-scale"></span> VDD 5V</h3>
 					  </div>
@@ -41,7 +41,7 @@
 					</div>
 				</div>
 				<div class="col-lg-2 col-sm-4 col-xs-6">
-					<div id="vddio" data-group="lradcs" class="panel panel-default">
+					<div data-group="lradcs" class="vddio panel panel-default">
 					  <div class="panel-heading">
 						<h3 class="panel-title"><span class="glyphicon glyphicon-scale"></span> VDD IO</h3>
 					  </div>
@@ -53,7 +53,7 @@
 					</div>
 				</div>
 				<div class="col-lg-2 col-sm-4 col-xs-6">
-					<div id="battery" data-group="lradcs" class="panel panel-default">
+					<div data-group="lradcs" class="battery panel panel-default">
 					  <div class="panel-heading">
 						<h3 class="panel-title"><span class="glyphicon glyphicon-flash"></span> Battery</h3>
 					  </div>
@@ -64,8 +64,8 @@
 					  </div>
 					</div>
 				</div>
-				<div class="col-lg-3 col-sm-6 col-xs-6">
-					<div id="temp" data-group="lradcs" class="panel panel-default">
+				<div class="col-lg-2 col-sm-4 col-xs-6">
+					<div data-group="lradcs" class="temp panel panel-default">
 					  <div class="panel-heading">
 						<h3 class="panel-title"><span class="glyphicon glyphicon-fire"></span> Temperature</h3>
 					  </div>
@@ -76,10 +76,22 @@
 					  </div>
 					</div>
 				</div>
-				<div class="col-lg-3 col-sm-6 col-xs-12">
-					<div id="leddriver" data-group="system" class="panel panel-default">
+				<div class="col-lg-2 col-sm-4 col-xs-6">
+					<div data-group="system" class="leddriver panel panel-default">
 					  <div class="panel-heading">
-						<h3 class="panel-title"><span class="glyphicon glyphicon-picture"></span> Frames per second</h3>
+						<h3 class="panel-title"><span class="glyphicon glyphicon-leaf"></span> Power</h3>
+					  </div>
+					  <div class="panel-body text-center">
+						<br>
+						<span class="h2"><span class="power-consumption value">0</span> W</span><br>
+						<small>(estimation)</small>
+					  </div>
+					</div>
+				</div>
+				<div class="col-lg-2 col-sm-4 col-xs-6">
+					<div data-group="system" class="leddriver panel panel-default">
+					  <div class="panel-heading">
+						<h3 class="panel-title"><span class="glyphicon glyphicon-picture"></span> FPS</h3>
 					  </div>
 					  <div class="panel-body text-center">
 						<br>
@@ -90,7 +102,7 @@
 				</div>
 				<div class="clearfix"></div>
 				<div class="col-xs-12">
-					<div id="brightness" data-group="lradcs" class="panel panel-default">
+					<div data-group="lradcs" class="brightness panel panel-default">
 					  <div class="panel-heading">
 						<h3 class="panel-title"><span class="glyphicon glyphicon-adjust"></span> Brightness</h3>
 					  </div>
@@ -109,7 +121,7 @@
 				</div>
 				<div class="clearfix"></div>
 				<div class="col-sm-3 col-xs-6">
-					<div id="motion" data-group="gpios" class="panel panel-default">
+					<div data-group="gpios" class="motion panel panel-default">
 					  <div class="panel-heading">
 						<h3 class="panel-title"><span class="glyphicon glyphicon-user"></span> Motion</h3>
 					  </div>
@@ -119,7 +131,7 @@
 					</div>
 				</div>
 				<div class="col-sm-3 col-xs-6">
-					<div id="button0" data-group="gpios" class="panel panel-default">
+					<div data-group="gpios" class="button0 panel panel-default">
 					  <div class="panel-heading">
 						<h3 class="panel-title"><span class="glyphicon glyphicon-download-alt"></span> Button 0</h3>
 					  </div>
@@ -129,7 +141,7 @@
 					</div>
 				</div>
 				<div class="col-sm-3 col-xs-6">
-					<div id="button1" data-group="gpios" class="panel panel-default">
+					<div data-group="gpios" class="button1 panel panel-default">
 					  <div class="panel-heading">
 						<h3 class="panel-title"><span class="glyphicon glyphicon-download-alt"></span> Button 1</h3>
 					  </div>
@@ -139,7 +151,7 @@
 					</div>
 				</div>
 				<div class="col-sm-3 col-xs-6">
-					<div id="button2" data-group="gpios" class="panel panel-default">
+					<div data-group="gpios" class="button2 panel panel-default">
 					  <div class="panel-heading">
 						<h3 class="panel-title"><span class="glyphicon glyphicon-download-alt"></span> Button 2</h3>
 					  </div>
@@ -149,7 +161,7 @@
 					</div>
 				</div>
 				<div class="col-sm-6 col-xs-12">
-					<div id="cpuload" data-group="system" class="panel panel-default">
+					<div data-group="system" class="cpuload panel panel-default">
 					  <div class="panel-heading">
 						<h3 class="panel-title"><span class="glyphicon glyphicon-dashboard"></span> CPU</h3>
 					  </div>
@@ -170,7 +182,7 @@
 					</div>
 				</div>
 				<div class="col-sm-6 col-xs-12">
-					<div id="memoryusage" data-group="system" class="panel panel-default">
+					<div data-group="system" class="memoryusage panel panel-default">
 					  <div class="panel-heading">
 						<h3 class="panel-title"><span class="glyphicon glyphicon-inbox"></span> Memory</h3>
 					  </div>
