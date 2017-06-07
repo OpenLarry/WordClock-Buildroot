@@ -4,12 +4,29 @@ jQuery(document).ready(function($) {
 			url: 'http://'+location.hostname+':8080/wirelessnetworks',
 			type: 'GET',
 			success: function(result) {
+				getScan();
 				for(var id in result) {
 					setNetwork(id, result[id]);
 				}
 			},
 			error: function() {
-				setTimeout(getSettings, 1000);
+				setTimeout(get, 1000);
+			}
+		});
+	}
+	
+	function getScan() {
+		$.ajax({
+			url: 'http://'+location.hostname+':8080/wirelessnetworks/scan',
+			type: 'GET',
+			success: function(result) {
+				$('#ssids').html('');
+				for(var id in result) {
+					$('<option />').attr('value',result[id].ssid).text(result[id].ssid).appendTo('#ssids');
+				}
+			},
+			error: function() {
+				setTimeout(getScan, 1000);
 			}
 		});
 	}
