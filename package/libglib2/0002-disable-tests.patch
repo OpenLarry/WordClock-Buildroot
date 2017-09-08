@@ -38,6 +38,6 @@ diff -Nura glib-2.46.1.orig/Makefile.am glib-2.46.1/Makefile.am
  
 -SUBDIRS = . m4macros glib gmodule gthread gobject gio po docs tests
 +SUBDIRS = . m4macros glib gmodule gthread gobject gio po docs
- DIST_SUBDIRS = $(SUBDIRS) build
+ DIST_SUBDIRS = $(SUBDIRS) build win32
  
  bin_SCRIPTS = glib-gettextize
