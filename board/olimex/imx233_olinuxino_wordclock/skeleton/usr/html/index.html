@@ -16,29 +16,130 @@
 		<link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
 		<link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
 		<link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+		
+		<style type="text/css">
+			#clock-container { position: relative; padding: 100% 0 0 0; z-index: -2; background-color: #cccccc; }
+			#clock { position: absolute; text-align: center; background-color: #000000; text-align: center; top: 10%; left: 10%; right: 10%; bottom: 10%; padding: 5%; }
+			@media only screen and (min-width: 768px) {
+				#clock { font-size: 150%; }
+			}
+			.matrix, .dots { display: inline-block; width: 9%; height: 9%; }
+			.backlight { display: block; position: absolute; width: 0px; height: 0px; z-index: -1; 	}
+		</style>
 	</head>
 
 	<body>
-		<div class="container">
-			<h1 class="page-header"><span class="glyphicon glyphicon-time"></span> WordClock</h1>
-			
-			<ol class="breadcrumb">
-				<li class="active">Home</li>
-			</ol>
-			
-			<div class="jumbotron">
-				<div style="margin: 0 auto;" class="btn-group" role="group">
-					<a href="/remote" class="btn btn-lg btn-default" role="button"><span class="glyphicon glyphicon-phone"></span> Remote</a>
-					<a href="/settings" class="btn btn-lg btn-default" role="button"><span class="glyphicon glyphicon-wrench"></span> Settings</a>
-					<a href="/lua" class="btn btn-lg btn-default" role="button"><span class="glyphicon glyphicon-console"></span> Lua</a>
+		<nav class="navbar navbar-default">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="/">WordClock</a>
 				</div>
-				
-				<div style="margin: 0 auto;" class="btn-group" role="group">
-					<a href="/sensors" class="btn btn-lg btn-default" role="button"><span class="glyphicon glyphicon-info-sign"></span> Hardware Info</a>
-					<a href="/wirelessnetworks" class="btn btn-lg btn-default" role="button"><span class="glyphicon glyphicon-signal"></span> Wireless Networks</a>
-					<a href="/update" class="btn btn-lg btn-default" role="button"><span class="glyphicon glyphicon-refresh"></span> Update</a>
+
+				<div class="collapse navbar-collapse" id="navbar">
+					<ul class="nav navbar-nav">						
+						<li class="active"><a href="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+						<li><a href="/remote"><span class="glyphicon glyphicon-phone"></span> Remote</a></li>
+						<li><a href="/settings"><span class="glyphicon glyphicon-wrench"></span> Settings</a></li>
+						<li><a href="/wirelessnetworks"><span class="glyphicon glyphicon-signal"></span> Wireless Networks</a></li>
+						<li><a href="/lua"><span class="glyphicon glyphicon-console"></span> Lua</a></li>
+						<li><a href="/sensors"><span class="glyphicon glyphicon-info-sign"></span> Hardware Info</a></li>
+						<li><a href="/update"><span class="glyphicon glyphicon-refresh"></span> Update</a></li>
+					</ul>
 				</div>
 			</div>
+		</nav>
+		
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-offset-1 col-sm-10">
+					<div class="jumbotron" id="clock-container">
+						<div id="clock">
+							<span class="led matrix">E</span><span class="led matrix">S</span><span class="led matrix">K</span><span class="led matrix">I</span><span class="led matrix">S</span><span class="led matrix">T</span><span class="led matrix">L</span><span class="led matrix">F</span><span class="led matrix">Ü</span><span class="led matrix">N</span><span class="led matrix">F</span><br>
+							<span class="led matrix">Z</span><span class="led matrix">E</span><span class="led matrix">H</span><span class="led matrix">N</span><span class="led matrix">Z</span><span class="led matrix">W</span><span class="led matrix">A</span><span class="led matrix">N</span><span class="led matrix">Z</span><span class="led matrix">I</span><span class="led matrix">G</span><br>
+							<span class="led matrix">D</span><span class="led matrix">R</span><span class="led matrix">E</span><span class="led matrix">I</span><span class="led matrix">V</span><span class="led matrix">I</span><span class="led matrix">E</span><span class="led matrix">R</span><span class="led matrix">T</span><span class="led matrix">E</span><span class="led matrix">L</span><br>
+							<span class="led matrix">T</span><span class="led matrix">G</span><span class="led matrix">N</span><span class="led matrix">A</span><span class="led matrix">C</span><span class="led matrix">H</span><span class="led matrix">V</span><span class="led matrix">O</span><span class="led matrix">R</span><span class="led matrix">J</span><span class="led matrix">M</span><br>
+							<span class="led matrix">H</span><span class="led matrix">A</span><span class="led matrix">L</span><span class="led matrix">B</span><span class="led matrix">Q</span><span class="led matrix">Z</span><span class="led matrix">W</span><span class="led matrix">Ö</span><span class="led matrix">L</span><span class="led matrix">F</span><span class="led matrix">P</span><br>
+							<span class="led matrix">Z</span><span class="led matrix">W</span><span class="led matrix">E</span><span class="led matrix">I</span><span class="led matrix">N</span><span class="led matrix">S</span><span class="led matrix">I</span><span class="led matrix">E</span><span class="led matrix">B</span><span class="led matrix">E</span><span class="led matrix">N</span><br>
+							<span class="led matrix">K</span><span class="led matrix">D</span><span class="led matrix">R</span><span class="led matrix">E</span><span class="led matrix">I</span><span class="led matrix">R</span><span class="led matrix">H</span><span class="led matrix">F</span><span class="led matrix">Ü</span><span class="led matrix">N</span><span class="led matrix">F</span><br>
+							<span class="led matrix">E</span><span class="led matrix">L</span><span class="led matrix">F</span><span class="led matrix">N</span><span class="led matrix">E</span><span class="led matrix">U</span><span class="led matrix">N</span><span class="led matrix">V</span><span class="led matrix">I</span><span class="led matrix">E</span><span class="led matrix">R</span><br>
+							<span class="led matrix">W</span><span class="led matrix">A</span><span class="led matrix">C</span><span class="led matrix">H</span><span class="led matrix">T</span><span class="led matrix">Z</span><span class="led matrix">E</span><span class="led matrix">H</span><span class="led matrix">N</span><span class="led matrix">R</span><span class="led matrix">S</span><br>
+							<span class="led matrix">B</span><span class="led matrix">S</span><span class="led matrix">E</span><span class="led matrix">C</span><span class="led matrix">H</span><span class="led matrix">S</span><span class="led matrix">F</span><span class="led matrix">M</span><span class="led matrix">U</span><span class="led matrix">H</span><span class="led matrix">R</span><br>
+							<span class="led dots">&bull;</span><span class="led dots">&bull;</span><span class="led dots">&bull;</span><span class="led dots">&bull;</span>
+							<span class="led backlight" style="right:49.95%; top:    0.00%;"></span>
+							<span class="led backlight" style="right:43.29%; top:    0.00%;"></span>
+							<span class="led backlight" style="right:36.63%; top:    0.00%;"></span>
+							<span class="led backlight" style="right:29.97%; top:    0.00%;"></span>
+							<span class="led backlight" style="right:23.31%; top:    0.00%;"></span>
+							<span class="led backlight" style="right:16.65%; top:    0.00%;"></span>
+							<span class="led backlight" style="right: 9.99%; top:    0.00%;"></span>
+							<span class="led backlight" style="right: 3.33%; top:    0.00%;"></span>
+							<span class="led backlight" style="right: 0.00%; top:    3.33%;"></span>
+							<span class="led backlight" style="right: 0.00%; top:    9.99%;"></span>
+							<span class="led backlight" style="right: 0.00%; top:   16.65%;"></span>
+							<span class="led backlight" style="right: 0.00%; top:   23.31%;"></span>
+							<span class="led backlight" style="right: 0.00%; top:   29.97%;"></span>
+							<span class="led backlight" style="right: 0.00%; top:   36.63%;"></span>
+							<span class="led backlight" style="right: 0.00%; top:   43.29%;"></span>
+							<span class="led backlight" style="right: 0.00%; top:   49.95%;"></span>
+							<span class="led backlight" style="right: 0.00%; bottom:43.29%;"></span>
+							<span class="led backlight" style="right: 0.00%; bottom:36.63%;"></span>
+							<span class="led backlight" style="right: 0.00%; bottom:29.97%;"></span>
+							<span class="led backlight" style="right: 0.00%; bottom:23.31%;"></span>
+							<span class="led backlight" style="right: 0.00%; bottom:16.65%;"></span>
+							<span class="led backlight" style="right: 0.00%; bottom: 9.99%;"></span>
+							<span class="led backlight" style="right: 0.00%; bottom: 3.33%;"></span>
+							<span class="led backlight" style="right: 3.33%; bottom: 0.00%;"></span>
+							<span class="led backlight" style="right: 9.99%; bottom: 0.00%;"></span>
+							<span class="led backlight" style="right:16.65%; bottom: 0.00%;"></span>
+							<span class="led backlight" style="right:23.31%; bottom: 0.00%;"></span>
+							<span class="led backlight" style="right:29.97%; bottom: 0.00%;"></span>
+							<span class="led backlight" style="right:36.63%; bottom: 0.00%;"></span>
+							<span class="led backlight" style="right:43.29%; bottom: 0.00%;"></span>
+							<span class="led backlight" style="left: 49.95%; bottom: 0.00%;"></span>
+							<span class="led backlight" style="left: 43.29%; bottom: 0.00%;"></span>
+							<span class="led backlight" style="left: 36.63%; bottom: 0.00%;"></span>
+							<span class="led backlight" style="left: 29.97%; bottom: 0.00%;"></span>
+							<span class="led backlight" style="left: 23.31%; bottom: 0.00%;"></span>
+							<span class="led backlight" style="left: 16.65%; bottom: 0.00%;"></span>
+							<span class="led backlight" style="left:  9.99%; bottom: 0.00%;"></span>
+							<span class="led backlight" style="left:  3.33%; bottom: 0.00%;"></span>
+							<span class="led backlight" style="left:  0.00%; bottom: 3.33%;"></span>
+							<span class="led backlight" style="left:  0.00%; bottom: 9.99%;"></span>
+							<span class="led backlight" style="left:  0.00%; bottom:16.65%;"></span>
+							<span class="led backlight" style="left:  0.00%; bottom:23.31%;"></span>
+							<span class="led backlight" style="left:  0.00%; bottom:29.97%;"></span>
+							<span class="led backlight" style="left:  0.00%; bottom:36.63%;"></span>
+							<span class="led backlight" style="left:  0.00%; bottom:43.29%;"></span>
+							<span class="led backlight" style="left:  0.00%; bottom:49.95%;"></span>
+							<span class="led backlight" style="left:  0.00%; top:   43.29%;"></span>
+							<span class="led backlight" style="left:  0.00%; top:   36.63%;"></span>
+							<span class="led backlight" style="left:  0.00%; top:   29.97%;"></span>
+							<span class="led backlight" style="left:  0.00%; top:   23.31%;"></span>
+							<span class="led backlight" style="left:  0.00%; top:   16.65%;"></span>
+							<span class="led backlight" style="left:  0.00%; top:    9.99%;"></span>
+							<span class="led backlight" style="left:  0.00%; top:    3.33%;"></span>
+							<span class="led backlight" style="left:  3.33%; top:    0.00%;"></span>
+							<span class="led backlight" style="left:  9.99%; top:    0.00%;"></span>
+							<span class="led backlight" style="left: 16.65%; top:    0.00%;"></span>
+							<span class="led backlight" style="left: 23.31%; top:    0.00%;"></span>
+							<span class="led backlight" style="left: 29.97%; top:    0.00%;"></span>
+							<span class="led backlight" style="left: 36.63%; top:    0.00%;"></span>
+							<span class="led backlight" style="left: 43.29%; top:    0.00%;"></span>
+						</div>
+					</div>
+				</div>
+				
+			</div>
 		</div>
+		
+		<script src="/libs/jquery-3.1.1.min.js"></script>
+		<script src="/libs/bootstrap/js/bootstrap.min.js"></script>
+		<script src="script.js"></script>
 	</body>
 </html>
