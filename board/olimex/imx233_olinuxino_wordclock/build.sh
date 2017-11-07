@@ -2,7 +2,7 @@
 set -e
 
 # save filesystem version
-GIT=$(git describe --dirty)
+GIT=$(git describe --dirty --always)
 DATE=$(date -R)
 
 echo "$GIT $DATE" > $TARGET_DIR/build
