@@ -30,6 +30,16 @@ jQuery(document).ready(function($) {
 		if(changed) return 'Discard changes?';
 	});
 	
+	$(document).on('keydown', function(e) {
+		if(e.ctrlKey && e.keyCode == 83) {
+			$('#save').click();
+			return false;
+		}else if(e.ctrlKey && e.keyCode == 76) {
+			$('#load').click();
+			return false;
+		}
+	});
+	
 	$('#save').click(function() {
 		$.ajax({
 			url: 'http://'+location.hostname+':8080/settings',
