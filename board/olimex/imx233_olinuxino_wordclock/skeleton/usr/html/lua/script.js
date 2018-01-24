@@ -64,6 +64,16 @@ jQuery(document).ready(function($) {
 		}
 	});
 	
+	$('#messagemodal').on('shown.bs.modal', function() {
+		$('#messagemodalok').focus();
+	});
+	function message(type, message) {
+		$('#messagemodaltitle').text(type);
+		if(type.toLowerCase() == 'error') type = 'Danger';
+		$('#messagemodalbody').text(message).removeClass().addClass('alert alert-'+type.toLowerCase());
+		$('#messagemodal').modal('show');
+	}
+	
 	$('#save').click(function() {
 		$.ajax({
 			url: 'http://'+location.hostname+':8080/lua',
@@ -71,10 +81,10 @@ jQuery(document).ready(function($) {
 			data: editor.getValue(),
 			success: function(result) {
 				changed = false;
-				alert('true');
+				message('Success','Lua saved!');
 			},
 			error: function(result) {
-				alert(result.responseText);
+				message('Error',result.responseText);
 			}
 		});
 	});
