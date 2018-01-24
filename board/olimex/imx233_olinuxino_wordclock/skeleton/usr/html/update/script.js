@@ -8,6 +8,16 @@ jQuery(document).ready(function($) {
 		$('#file_form')[0].reset();
 	});
 	
+	$('#messagemodal').on('shown.bs.modal', function() {
+		$('#messagemodalok').focus();
+	});
+	function message(type, message) {
+		$('#messagemodaltitle').text(type);
+		if(type.toLowerCase() == 'error') type = 'Danger';
+		$('#messagemodalbody').text(message).removeClass().addClass('alert alert-'+type.toLowerCase());
+		$('#messagemodal').modal('show');
+	}
+	
 	$.ajax({
 		type: 'GET',
 		url: 'http://'+location.hostname+':8080/systeminfo',
@@ -26,15 +36,15 @@ jQuery(document).ready(function($) {
 		var file = files[0];
 		
 		if(file.name.substr(-4) != ".img") {
-			alert("Invalid file extension!");
+			message('Error','Invalid file extension!');
 			return;
 		}
 		if(file.size <= 13631488) {
-			alert("File too small!");
+			message('Error','File too small!');
 			return;
 		}
 		if(file.size > 47185920) {
-			alert("File too big!");
+			message('Error','File too big!');
 			return;
 		}
 		
@@ -58,12 +68,13 @@ jQuery(document).ready(function($) {
 					data: data,
 					processData: false,
 					success: function(r) {
-						$('#progressbar').addClass('progress-bar-success');
-						alert(r);
+						message('Success','Update finished!');
 					},
 					error: function(r) {
 						$('#progressbar').addClass('progress-bar-danger');
-						if(r.responseText) alert(r.responseText);
+						if(r.responseText) {
+							message('Error',result.responseText);
+						}
 					},
 					complete: function() {
 						$('#progressbar').removeClass('active');
