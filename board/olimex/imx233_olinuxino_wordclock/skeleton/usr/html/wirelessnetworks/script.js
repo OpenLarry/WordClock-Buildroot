@@ -50,7 +50,7 @@ jQuery(document).ready(function($) {
 			success: function(result) {
 			},
 			error: function(result) {
-				alert(result.responseText);
+				message('Error',result.responseText);
 			},
 			complete: function() {
 				form.find('input, button').prop('disabled', false);
@@ -71,7 +71,7 @@ jQuery(document).ready(function($) {
 				$('#network-'+id).remove();
 			},
 			error: function(result) {
-				alert(result.responseText);
+				message('Error',result.responseText);
 			},
 			complete: function() {
 				form.find('input, button').prop('disabled', false);
@@ -99,7 +99,7 @@ jQuery(document).ready(function($) {
 				form[0].reset();
 			},
 			error: function(result) {
-				alert(result.responseText);
+				message('Error',result.responseText);
 			},
 			complete: function() {
 				form.find('input, button').prop('disabled', false);
@@ -128,4 +128,14 @@ jQuery(document).ready(function($) {
 	
 	get();
 	$('.add').click(add);
+	
+	$('#messagemodal').on('shown.bs.modal', function() {
+		$('#messagemodalok').focus();
+	});
+	function message(type, message) {
+		$('#messagemodaltitle').text(type);
+		if(type.toLowerCase() == 'error') type = 'Danger';
+		$('#messagemodalbody').text(message).removeClass().addClass('alert alert-'+type.toLowerCase());
+		$('#messagemodal').modal('show');
+	}
 });
