@@ -43,6 +43,7 @@ jQuery(document).ready(function($) {
 							if(["nice","irq","iowait"].indexOf(v) >= 0) value_v = rest += value_v;
 							if(v == "total") value_v = mem_v += value_v;
 							if(v == "available") value_v = mem_v -= value_v;
+							if(v == "current-fps") value_v = Math.round(value_v*10) / 10;
 							if(["user","nice","system","idle","irq","softirq","iowait","total","available","power-consumption"].indexOf(v) >= 0) value_v = Math.round(value_v);
 							
 							
