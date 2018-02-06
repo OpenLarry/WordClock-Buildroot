@@ -7,38 +7,31 @@
 ## Compilation
 
 1. Clone repository:
-  
-  SSH: `git clone git@github.com:OpenLarry/WordClock-Buildroot.git`
-  
-  HTTP: `git clone https://github.com/OpenLarry/WordClock-Buildroot.git`
+   
+   `git clone --recursive git@github.com:OpenLarry/WordClock-Buildroot.git`
 2. Change directory:
-  
-  `cd WordClock-Buildroot`
-3. Download submodules:
-  
-  `git submodule init`
-  
-  `git submodule update`
-4. Set buildroot configuration:
-  
-  `make olimex_imx233_olinuxino_wordclock_defconfig`
-5. Run build process:
-  
-  `make`
-6. Wait. Build time depends on hardware configuration and internet speed.
-7. Change into generated output directory:
-  
-  `cd output/images`
-8. Here you can find the SD card image (`sd-card.img`) and all parts of it:
-  
-  * `u-boot.sd` boot loader
-  * `uboot-env.bin` boot loader configuration
-  * `uImage.imx233-olinuxino` linux kernel
-  * `rootfs.squashfs` root filesystem
-  
-9. Copy to SD card:
-  
-  `dd if=sd-card.img of=/dev/mmcblk0 bs=4096` (replace mmcblk0 with your card reader device)
+   
+   `cd WordClock-Buildroot`
+3. Set buildroot configuration:
+   
+   `make olimex_imx233_olinuxino_wordclock_defconfig`
+4. Run build process:
+   
+   `make`
+5. Wait. Build time depends on hardware configuration and internet speed.
+6. Change into generated output directory:
+   
+   `cd output/images`
+7. Here you can find the SD card image (`sd-card.img`) and all parts of it:
+   
+   * `u-boot.sd` boot loader
+   * `uboot-env.bin` boot loader configuration
+   * `uImage.imx233-olinuxino` linux kernel
+   * `rootfs.squashfs` root filesystem
+   
+8. Copy to SD card:
+   
+   `dd if=sd-card.img of=/dev/mmcblk0 bs=4096` (replace mmcblk0 with your card reader device)
 
 ## About buildroot
 
@@ -57,7 +50,7 @@ To build and use the buildroot stuff, do the following:
 4. wait while it compiles
 5. find the kernel, bootloader, root filesystem, etc. in output/images
 
-You do not need to be root to build or run buildroot.  Have fun!
+You do not need to be root to build or run buildroot.   Have fun!
 
 Buildroot comes with a basic configuration for a number of boards. Run
 'make list-defconfigs' to view the list of provided configurations.
