@@ -1,0 +1,12 @@
+diff -Nura libglib2-2.52.3/glib/gtimezone.c libglib2-2.52.3.new/glib/gtimezone.c
+--- libglib2-2.52.3/glib/gtimezone.c	2018-03-02 10:27:49.000000000 +0100
++++ libglib2-2.52.3.new/glib/gtimezone.c	2018-03-02 10:28:13.000000000 +0100
+@@ -772,7 +772,7 @@
+       /* week is 1 <= w <= 5, we need 0-based */
+       days = 7 * (buffer->week - 1) + wday - first_wday;
+ 
+-      while (days > days_in_month)
++      while (days >= days_in_month)
+         days -= 7;
+ 
+       g_date_add_days (&date, days);
