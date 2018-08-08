@@ -1,0 +1,23 @@
+diff -Nura json-glib-1.2.8/json-glib/json-node.c json-glib-1.2.8.new/json-glib/json-node.c
+--- json-glib-1.2.8/json-glib/json-node.c	2017-03-11 16:46:24.000000000 +0100
++++ json-glib-1.2.8.new/json-glib/json-node.c	2018-08-08 22:18:47.000000000 +0200
+@@ -143,16 +143,19 @@
+     case JSON_NODE_OBJECT:
+       if (node->data.object)
+         json_object_unref (node->data.object);
++      node->data.object = NULL;
+       break;
+ 
+     case JSON_NODE_ARRAY:
+       if (node->data.array)
+         json_array_unref (node->data.array);
++      node->data.array = NULL;
+       break;
+ 
+     case JSON_NODE_VALUE:
+       if (node->data.value)
+         json_value_unref (node->data.value);
++      node->data.value = NULL;
+       break;
+ 
+     case JSON_NODE_NULL:
