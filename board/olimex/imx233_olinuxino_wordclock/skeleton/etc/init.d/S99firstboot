@@ -6,12 +6,38 @@ set -e
 
 case "$1" in
   start)
-	# boot successful
-	echo timer > /sys/class/leds/green/trigger
-	
-	if fw_printenv firstboot | grep -q 2; then
-		echo "First boot after system upgrade";
-		fw_setenv firstboot 0;
-	fi;
+	(
+		# boot successful
+		echo timer > /sys/class/leds/green/trigger
+		
+		echo 250 > /sys/class/leds/green/delay_on # fast blinking
+		echo 250 > /sys/class/leds/green/delay_off # fast blinking
+		
+		echo "Wait for WordClock render thread"
+		
+		# wait until render thread starts
+		for i in `seq 1 24`; do
+			if cat /proc/*/task/*/status | grep -q Ws2812bDriver; then
+				echo "WordClock render thread running"
+				echo 500 > /sys/class/leds/green/delay_on # slow blinking
+				echo 500 > /sys/class/leds/green/delay_off # slow blinking
+				
+				if fw_printenv firstboot | grep -q 2; then
+					echo "First boot after system upgrade";
+					fw_setenv firstboot 0;
+				fi;
+				break;
+			else
+				sleep 5
+			fi
+		done
+		
+		echo "Wait timeout"
+		
+		if fw_printenv firstboot | grep -q 2; then
+			echo "System upgrade failed";
+			reboot
+		fi;
+	) & # run in background
 	;;
 esac
