@@ -16,6 +16,7 @@
 /etc/autossh/id_rsa				f	600	0	0	-	-	-	-	-
 /etc/init.d/S60autossh				f	755	0	0	-	-	-	-	-
 /etc/init.d/S98update				f	755	0	0	-	-	-	-	-
+/etc/profile.d/locale.sh				f	755	0	0	-	-	-	-	-
 /etc/init.d/S99firstboot				f	755	0	0	-	-	-	-	-
 /etc/network/if-pre-up.d/setmac				f	755	0	0	-	-	-	-	-
 /etc/wpa_supplicant/action_wpa.sh				f	755	0	0	-	-	-	-	-
