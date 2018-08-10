@@ -3,13 +3,12 @@
 # Start/stop wordclock
 #
 
+. /etc/profile.d/locale.sh
+
 PIDFILE=/var/run/wordclock.pid
 
 case "$1" in
   start)
-	export LANG=de_DE.UTF-8
-	export TZ=$(cat /etc/TZ)
-	
 	echo "Starting wordclock..."
 	start-stop-daemon -b -S -m -p $PIDFILE -x /usr/sbin/wordclock
 	;;
