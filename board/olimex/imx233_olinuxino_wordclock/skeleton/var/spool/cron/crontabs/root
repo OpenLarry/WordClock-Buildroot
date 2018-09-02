@@ -1,1 +1,1 @@
-0 */6 * * * update 2>&1 > /dev/null
+0 */6 * * * sleep $(($RANDOM % 600)); update 2>&1 > /dev/null
