@@ -13,9 +13,11 @@
 /usr/sbin/wpa_action				f	755	0	0	-	-	-	-	-
 /usr/sbin/update				f	755	0	0	-	-	-	-	-
 /usr/sbin/flashimage				f	755	0	0	-	-	-	-	-
+/etc/init.d/S41rdnssd				f	755	0	0	-	-	-	-	-
 /etc/init.d/S98update				f	755	0	0	-	-	-	-	-
 /etc/init.d/S99firstboot				f	755	0	0	-	-	-	-	-
 /etc/profile.d/locale.sh				f	755	0	0	-	-	-	-	-
+/etc/rdnssd/merge-hook				f	755	0	0	-	-	-	-	-
 /etc/network/if-pre-up.d/setmac				f	755	0	0	-	-	-	-	-
 /etc/wpa_supplicant/action_wpa.sh				f	755	0	0	-	-	-	-	-
 /etc/wpa_supplicant/functions.sh				f	755	0	0	-	-	-	-	-
