@@ -1,0 +1,2 @@
+# username uid group gid password home shell groups comment
+rdnssd -1 nogroup -1 * - /bin/false - rdnssd
