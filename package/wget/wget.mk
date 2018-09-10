@@ -37,4 +37,6 @@ else
 WGET_CONF_OPTS += --without-zlib
 endif
 
+WGET_CONF_ENV = gl_cv_func_gettimeofday_clobber=no
+
 $(eval $(autotools-package))
