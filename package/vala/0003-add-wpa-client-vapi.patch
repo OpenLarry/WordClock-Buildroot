@@ -1,0 +1,380 @@
+diff -Nura host-vala-0.36.15/vapi/Makefile.am host-vala-0.36.15.new/vapi/Makefile.am
+--- host-vala-0.36.15/vapi/Makefile.am	2018-07-16 14:49:07.000000000 +0200
++++ host-vala-0.36.15.new/vapi/Makefile.am	2018-09-24 15:17:24.000000000 +0200
+@@ -322,6 +322,7 @@
+ 	webkit2gtk-4.0.deps \
+ 	webkit2gtk-web-extension-4.0.vapi \
+ 	webkit2gtk-web-extension-4.0.deps \
++	wpa_client.vapi \
+ 	x11.vapi \
+ 	xcb.vapi \
+ 	xcb-icccm.vapi \
+diff -Nura host-vala-0.36.15/vapi/wpa_client.vapi host-vala-0.36.15.new/vapi/wpa_client.vapi
+--- host-vala-0.36.15/vapi/wpa_client.vapi	1970-01-01 01:00:00.000000000 +0100
++++ host-vala-0.36.15.new/vapi/wpa_client.vapi	2018-09-24 15:14:56.000000000 +0200
+@@ -0,0 +1,365 @@
++[CCode (cheader_filename = "wpa_ctrl.h")]
++namespace WPAClient {
++	[CCode (cname="WPA_CTRL_REQ")]
++	public const string WPA_CTRL_REQ;
++	[CCode (cname="WPA_CTRL_RSP")]
++	public const string WPA_CTRL_RSP;
++	[CCode (cname="WPA_EVENT_CONNECTED")]
++	public const string WPA_EVENT_CONNECTED;
++	[CCode (cname="WPA_EVENT_DISCONNECTED")]
++	public const string WPA_EVENT_DISCONNECTED;
++	[CCode (cname="WPA_EVENT_ASSOC_REJECT")]
++	public const string WPA_EVENT_ASSOC_REJECT;
++	[CCode (cname="WPA_EVENT_AUTH_REJECT")]
++	public const string WPA_EVENT_AUTH_REJECT;
++	[CCode (cname="WPA_EVENT_TERMINATING")]
++	public const string WPA_EVENT_TERMINATING;
++	[CCode (cname="WPA_EVENT_PASSWORD_CHANGED")]
++	public const string WPA_EVENT_PASSWORD_CHANGED;
++	[CCode (cname="WPA_EVENT_EAP_NOTIFICATION")]
++	public const string WPA_EVENT_EAP_NOTIFICATION;
++	[CCode (cname="WPA_EVENT_EAP_STARTED")]
++	public const string WPA_EVENT_EAP_STARTED;
++	[CCode (cname="WPA_EVENT_EAP_PROPOSED_METHOD")]
++	public const string WPA_EVENT_EAP_PROPOSED_METHOD;
++	[CCode (cname="WPA_EVENT_EAP_METHOD")]
++	public const string WPA_EVENT_EAP_METHOD;
++	[CCode (cname="WPA_EVENT_EAP_PEER_CERT")]
++	public const string WPA_EVENT_EAP_PEER_CERT;
++	[CCode (cname="WPA_EVENT_EAP_PEER_ALT")]
++	public const string WPA_EVENT_EAP_PEER_ALT;
++	[CCode (cname="WPA_EVENT_EAP_TLS_CERT_ERROR")]
++	public const string WPA_EVENT_EAP_TLS_CERT_ERROR;
++	[CCode (cname="WPA_EVENT_EAP_STATUS")]
++	public const string WPA_EVENT_EAP_STATUS;
++	[CCode (cname="WPA_EVENT_EAP_SUCCESS")]
++	public const string WPA_EVENT_EAP_SUCCESS;
++	[CCode (cname="WPA_EVENT_EAP_FAILURE")]
++	public const string WPA_EVENT_EAP_FAILURE;
++	[CCode (cname="WPA_EVENT_TEMP_DISABLED")]
++	public const string WPA_EVENT_TEMP_DISABLED;
++	[CCode (cname="WPA_EVENT_REENABLED")]
++	public const string WPA_EVENT_REENABLED;
++	[CCode (cname="WPA_EVENT_SCAN_STARTED")]
++	public const string WPA_EVENT_SCAN_STARTED;
++	[CCode (cname="WPA_EVENT_SCAN_RESULTS")]
++	public const string WPA_EVENT_SCAN_RESULTS;
++	[CCode (cname="WPA_EVENT_SCAN_FAILED")]
++	public const string WPA_EVENT_SCAN_FAILED;
++	[CCode (cname="WPA_EVENT_STATE_CHANGE")]
++	public const string WPA_EVENT_STATE_CHANGE;
++	[CCode (cname="WPA_EVENT_BSS_ADDED")]
++	public const string WPA_EVENT_BSS_ADDED;
++	[CCode (cname="WPA_EVENT_BSS_REMOVED")]
++	public const string WPA_EVENT_BSS_REMOVED;
++	[CCode (cname="WPA_EVENT_NETWORK_NOT_FOUND")]
++	public const string WPA_EVENT_NETWORK_NOT_FOUND;
++	[CCode (cname="WPA_EVENT_SIGNAL_CHANGE")]
++	public const string WPA_EVENT_SIGNAL_CHANGE;
++	[CCode (cname="WPA_EVENT_REGDOM_CHANGE")]
++	public const string WPA_EVENT_REGDOM_CHANGE;
++	[CCode (cname="IBSS_RSN_COMPLETED")]
++	public const string IBSS_RSN_COMPLETED;
++	[CCode (cname="WPA_EVENT_FREQ_CONFLICT")]
++	public const string WPA_EVENT_FREQ_CONFLICT;
++	[CCode (cname="WPA_EVENT_AVOID_FREQ")]
++	public const string WPA_EVENT_AVOID_FREQ;
++	[CCode (cname="WPS_EVENT_OVERLAP")]
++	public const string WPS_EVENT_OVERLAP;
++	[CCode (cname="WPS_EVENT_AP_AVAILABLE_PBC")]
++	public const string WPS_EVENT_AP_AVAILABLE_PBC;
++	[CCode (cname="WPS_EVENT_AP_AVAILABLE_AUTH")]
++	public const string WPS_EVENT_AP_AVAILABLE_AUTH;
++	[CCode (cname="WPS_EVENT_AP_AVAILABLE_PIN")]
++	public const string WPS_EVENT_AP_AVAILABLE_PIN;
++	[CCode (cname="WPS_EVENT_AP_AVAILABLE")]
++	public const string WPS_EVENT_AP_AVAILABLE;
++	[CCode (cname="WPS_EVENT_CRED_RECEIVED")]
++	public const string WPS_EVENT_CRED_RECEIVED;
++	[CCode (cname="WPS_EVENT_M2D")]
++	public const string WPS_EVENT_M2D;
++	[CCode (cname="WPS_EVENT_FAIL")]
++	public const string WPS_EVENT_FAIL;
++	[CCode (cname="WPS_EVENT_SUCCESS")]
++	public const string WPS_EVENT_SUCCESS;
++	[CCode (cname="WPS_EVENT_TIMEOUT")]
++	public const string WPS_EVENT_TIMEOUT;
++	[CCode (cname="WPS_EVENT_ACTIVE")]
++	public const string WPS_EVENT_ACTIVE;
++	[CCode (cname="WPS_EVENT_DISABLE")]
++	public const string WPS_EVENT_DISABLE;
++	[CCode (cname="WPS_EVENT_ENROLLEE_SEEN")]
++	public const string WPS_EVENT_ENROLLEE_SEEN;
++	[CCode (cname="WPS_EVENT_OPEN_NETWORK")]
++	public const string WPS_EVENT_OPEN_NETWORK;
++	[CCode (cname="WPS_EVENT_ER_AP_ADD")]
++	public const string WPS_EVENT_ER_AP_ADD;
++	[CCode (cname="WPS_EVENT_ER_AP_REMOVE")]
++	public const string WPS_EVENT_ER_AP_REMOVE;
++	[CCode (cname="WPS_EVENT_ER_ENROLLEE_ADD")]
++	public const string WPS_EVENT_ER_ENROLLEE_ADD;
++	[CCode (cname="WPS_EVENT_ER_ENROLLEE_REMOVE")]
++	public const string WPS_EVENT_ER_ENROLLEE_REMOVE;
++	[CCode (cname="WPS_EVENT_ER_AP_SETTINGS")]
++	public const string WPS_EVENT_ER_AP_SETTINGS;
++	[CCode (cname="WPS_EVENT_ER_SET_SEL_REG")]
++	public const string WPS_EVENT_ER_SET_SEL_REG;
++	[CCode (cname="MESH_GROUP_STARTED")]
++	public const string MESH_GROUP_STARTED;
++	[CCode (cname="MESH_GROUP_REMOVED")]
++	public const string MESH_GROUP_REMOVED;
++	[CCode (cname="MESH_PEER_CONNECTED")]
++	public const string MESH_PEER_CONNECTED;
++	[CCode (cname="MESH_PEER_DISCONNECTED")]
++	public const string MESH_PEER_DISCONNECTED;
++	[CCode (cname="MESH_SAE_AUTH_FAILURE")]
++	public const string MESH_SAE_AUTH_FAILURE;
++	[CCode (cname="MESH_SAE_AUTH_BLOCKED")]
++	public const string MESH_SAE_AUTH_BLOCKED;
++	[CCode (cname="WMM_AC_EVENT_TSPEC_ADDED")]
++	public const string WMM_AC_EVENT_TSPEC_ADDED;
++	[CCode (cname="WMM_AC_EVENT_TSPEC_REMOVED")]
++	public const string WMM_AC_EVENT_TSPEC_REMOVED;
++	[CCode (cname="WMM_AC_EVENT_TSPEC_REQ_FAILED")]
++	public const string WMM_AC_EVENT_TSPEC_REQ_FAILED;
++	[CCode (cname="P2P_EVENT_DEVICE_FOUND")]
++	public const string P2P_EVENT_DEVICE_FOUND;
++	[CCode (cname="P2P_EVENT_DEVICE_LOST")]
++	public const string P2P_EVENT_DEVICE_LOST;
++	[CCode (cname="P2P_EVENT_GO_NEG_REQUEST")]
++	public const string P2P_EVENT_GO_NEG_REQUEST;
++	[CCode (cname="P2P_EVENT_GO_NEG_SUCCESS")]
++	public const string P2P_EVENT_GO_NEG_SUCCESS;
++	[CCode (cname="P2P_EVENT_GO_NEG_FAILURE")]
++	public const string P2P_EVENT_GO_NEG_FAILURE;
++	[CCode (cname="P2P_EVENT_GROUP_FORMATION_SUCCESS")]
++	public const string P2P_EVENT_GROUP_FORMATION_SUCCESS;
++	[CCode (cname="P2P_EVENT_GROUP_FORMATION_FAILURE")]
++	public const string P2P_EVENT_GROUP_FORMATION_FAILURE;
++	[CCode (cname="P2P_EVENT_GROUP_STARTED")]
++	public const string P2P_EVENT_GROUP_STARTED;
++	[CCode (cname="P2P_EVENT_GROUP_REMOVED")]
++	public const string P2P_EVENT_GROUP_REMOVED;
++	[CCode (cname="P2P_EVENT_CROSS_CONNECT_ENABLE")]
++	public const string P2P_EVENT_CROSS_CONNECT_ENABLE;
++	[CCode (cname="P2P_EVENT_CROSS_CONNECT_DISABLE")]
++	public const string P2P_EVENT_CROSS_CONNECT_DISABLE;
++	[CCode (cname="P2P_EVENT_PROV_DISC_SHOW_PIN")]
++	public const string P2P_EVENT_PROV_DISC_SHOW_PIN;
++	[CCode (cname="P2P_EVENT_PROV_DISC_ENTER_PIN")]
++	public const string P2P_EVENT_PROV_DISC_ENTER_PIN;
++	[CCode (cname="P2P_EVENT_PROV_DISC_PBC_REQ")]
++	public const string P2P_EVENT_PROV_DISC_PBC_REQ;
++	[CCode (cname="P2P_EVENT_PROV_DISC_PBC_RESP")]
++	public const string P2P_EVENT_PROV_DISC_PBC_RESP;
++	[CCode (cname="P2P_EVENT_PROV_DISC_FAILURE")]
++	public const string P2P_EVENT_PROV_DISC_FAILURE;
++	[CCode (cname="P2P_EVENT_SERV_DISC_REQ")]
++	public const string P2P_EVENT_SERV_DISC_REQ;
++	[CCode (cname="P2P_EVENT_SERV_DISC_RESP")]
++	public const string P2P_EVENT_SERV_DISC_RESP;
++	[CCode (cname="P2P_EVENT_SERV_ASP_RESP")]
++	public const string P2P_EVENT_SERV_ASP_RESP;
++	[CCode (cname="P2P_EVENT_INVITATION_RECEIVED")]
++	public const string P2P_EVENT_INVITATION_RECEIVED;
++	[CCode (cname="P2P_EVENT_INVITATION_RESULT")]
++	public const string P2P_EVENT_INVITATION_RESULT;
++	[CCode (cname="P2P_EVENT_FIND_STOPPED")]
++	public const string P2P_EVENT_FIND_STOPPED;
++	[CCode (cname="P2P_EVENT_PERSISTENT_PSK_FAIL")]
++	public const string P2P_EVENT_PERSISTENT_PSK_FAIL;
++	[CCode (cname="P2P_EVENT_PRESENCE_RESPONSE")]
++	public const string P2P_EVENT_PRESENCE_RESPONSE;
++	[CCode (cname="P2P_EVENT_NFC_BOTH_GO")]
++	public const string P2P_EVENT_NFC_BOTH_GO;
++	[CCode (cname="P2P_EVENT_NFC_PEER_CLIENT")]
++	public const string P2P_EVENT_NFC_PEER_CLIENT;
++	[CCode (cname="P2P_EVENT_NFC_WHILE_CLIENT")]
++	public const string P2P_EVENT_NFC_WHILE_CLIENT;
++	[CCode (cname="P2P_EVENT_FALLBACK_TO_GO_NEG")]
++	public const string P2P_EVENT_FALLBACK_TO_GO_NEG;
++	[CCode (cname="P2P_EVENT_FALLBACK_TO_GO_NEG_ENABLED")]
++	public const string P2P_EVENT_FALLBACK_TO_GO_NEG_ENABLED;
++	[CCode (cname="ESS_DISASSOC_IMMINENT")]
++	public const string ESS_DISASSOC_IMMINENT;
++	[CCode (cname="P2P_EVENT_REMOVE_AND_REFORM_GROUP")]
++	public const string P2P_EVENT_REMOVE_AND_REFORM_GROUP;
++	[CCode (cname="P2P_EVENT_P2PS_PROVISION_START")]
++	public const string P2P_EVENT_P2PS_PROVISION_START;
++	[CCode (cname="P2P_EVENT_P2PS_PROVISION_DONE")]
++	public const string P2P_EVENT_P2PS_PROVISION_DONE;
++	[CCode (cname="INTERWORKING_AP")]
++	public const string INTERWORKING_AP;
++	[CCode (cname="INTERWORKING_BLACKLISTED")]
++	public const string INTERWORKING_BLACKLISTED;
++	[CCode (cname="INTERWORKING_NO_MATCH")]
++	public const string INTERWORKING_NO_MATCH;
++	[CCode (cname="INTERWORKING_ALREADY_CONNECTED")]
++	public const string INTERWORKING_ALREADY_CONNECTED;
++	[CCode (cname="INTERWORKING_SELECTED")]
++	public const string INTERWORKING_SELECTED;
++	[CCode (cname="CRED_ADDED")]
++	public const string CRED_ADDED;
++	[CCode (cname="CRED_MODIFIED")]
++	public const string CRED_MODIFIED;
++	[CCode (cname="CRED_REMOVED")]
++	public const string CRED_REMOVED;
++	[CCode (cname="GAS_RESPONSE_INFO")]
++	public const string GAS_RESPONSE_INFO;
++	[CCode (cname="GAS_QUERY_START")]
++	public const string GAS_QUERY_START;
++	[CCode (cname="GAS_QUERY_DONE")]
++	public const string GAS_QUERY_DONE;
++	[CCode (cname="ANQP_QUERY_DONE")]
++	public const string ANQP_QUERY_DONE;
++	[CCode (cname="HS20_SUBSCRIPTION_REMEDIATION")]
++	public const string HS20_SUBSCRIPTION_REMEDIATION;
++	[CCode (cname="HS20_DEAUTH_IMMINENT_NOTICE")]
++	public const string HS20_DEAUTH_IMMINENT_NOTICE;
++	[CCode (cname="EXT_RADIO_WORK_START")]
++	public const string EXT_RADIO_WORK_START;
++	[CCode (cname="EXT_RADIO_WORK_TIMEOUT")]
++	public const string EXT_RADIO_WORK_TIMEOUT;
++	[CCode (cname="RRM_EVENT_NEIGHBOR_REP_RXED")]
++	public const string RRM_EVENT_NEIGHBOR_REP_RXED;
++	[CCode (cname="RRM_EVENT_NEIGHBOR_REP_FAILED")]
++	public const string RRM_EVENT_NEIGHBOR_REP_FAILED;
++	[CCode (cname="WPS_EVENT_PIN_NEEDED")]
++	public const string WPS_EVENT_PIN_NEEDED;
++	[CCode (cname="WPS_EVENT_NEW_AP_SETTINGS")]
++	public const string WPS_EVENT_NEW_AP_SETTINGS;
++	[CCode (cname="WPS_EVENT_REG_SUCCESS")]
++	public const string WPS_EVENT_REG_SUCCESS;
++	[CCode (cname="WPS_EVENT_AP_SETUP_LOCKED")]
++	public const string WPS_EVENT_AP_SETUP_LOCKED;
++	[CCode (cname="WPS_EVENT_AP_SETUP_UNLOCKED")]
++	public const string WPS_EVENT_AP_SETUP_UNLOCKED;
++	[CCode (cname="WPS_EVENT_AP_PIN_ENABLED")]
++	public const string WPS_EVENT_AP_PIN_ENABLED;
++	[CCode (cname="WPS_EVENT_AP_PIN_DISABLED")]
++	public const string WPS_EVENT_AP_PIN_DISABLED;
++	[CCode (cname="AP_STA_CONNECTED")]
++	public const string AP_STA_CONNECTED;
++	[CCode (cname="AP_STA_DISCONNECTED")]
++	public const string AP_STA_DISCONNECTED;
++	[CCode (cname="AP_STA_POSSIBLE_PSK_MISMATCH")]
++	public const string AP_STA_POSSIBLE_PSK_MISMATCH;
++	[CCode (cname="AP_REJECTED_MAX_STA")]
++	public const string AP_REJECTED_MAX_STA;
++	[CCode (cname="AP_REJECTED_BLOCKED_STA")]
++	public const string AP_REJECTED_BLOCKED_STA;
++	[CCode (cname="AP_EVENT_ENABLED")]
++	public const string AP_EVENT_ENABLED;
++	[CCode (cname="AP_EVENT_DISABLED")]
++	public const string AP_EVENT_DISABLED;
++	[CCode (cname="INTERFACE_ENABLED")]
++	public const string INTERFACE_ENABLED;
++	[CCode (cname="INTERFACE_DISABLED")]
++	public const string INTERFACE_DISABLED;
++	[CCode (cname="ACS_EVENT_STARTED")]
++	public const string ACS_EVENT_STARTED;
++	[CCode (cname="ACS_EVENT_COMPLETED")]
++	public const string ACS_EVENT_COMPLETED;
++	[CCode (cname="ACS_EVENT_FAILED")]
++	public const string ACS_EVENT_FAILED;
++	[CCode (cname="DFS_EVENT_RADAR_DETECTED")]
++	public const string DFS_EVENT_RADAR_DETECTED;
++	[CCode (cname="DFS_EVENT_NEW_CHANNEL")]
++	public const string DFS_EVENT_NEW_CHANNEL;
++	[CCode (cname="DFS_EVENT_CAC_START")]
++	public const string DFS_EVENT_CAC_START;
++	[CCode (cname="DFS_EVENT_CAC_COMPLETED")]
++	public const string DFS_EVENT_CAC_COMPLETED;
++	[CCode (cname="DFS_EVENT_NOP_FINISHED")]
++	public const string DFS_EVENT_NOP_FINISHED;
++	[CCode (cname="AP_CSA_FINISHED")]
++	public const string AP_CSA_FINISHED;
++	[CCode (cname="BSS_TM_RESP")]
++	public const string BSS_TM_RESP;
++	
++	[CCode (cname = "int", cprefix = "WPA_BSS_MASK_", has_type_id = false)]
++	[Flags]
++	public enum BssMask {
++		ALL,
++		ID,
++		BSSID,
++		FREQ,
++		BEACON_INT,
++		CAPABILITIES,
++		QUAL,
++		NOISE,
++		LEVEL,
++		TSF,
++		AGE,
++		IE,
++		FLAGS,
++		SSID,
++		WPS_SCAN,
++		P2P_SCAN,
++		INTERNETW,
++		WIFI_DISPLAY,
++		DELIM,
++		MESH_SCAN,
++		SNR,
++		EST_THROUGHPUT,
++		FST
++	}
++	
++	[Compact]
++	[CCode (free_function = "wpa_ctrl_close", cname = "struct wpa_ctrl", cprefix="wpa_ctrl_")]
++	public class WPACtrl {
++		[CCode (has_target = false)]
++		private delegate void MsgCb( [CCode (array_length_type = "size_t")] uint8[] msg );
++		
++		[CCode (cname = "wpa_ctrl_open")]
++		public WPACtrl( string ctrl_path );
++		[CCode (cname = "wpa_ctrl_open2")]
++		public WPACtrl.open2( string ctrl_path, string cli_path );
++		[CCode (cname = "wpa_ctrl_attach")]
++		private int _attach();
++		[CCode (cname = "wpa_ctrl_detach")]
++		private int _detach();
++		public int get_fd();
++		[CCode (cname = "wpa_ctrl_pending")]
++		private int _pending();
++		[CCode (cname = "wpa_ctrl_recv")]
++		private int _recv( [CCode (array_length = false)] uint8[] reply, ref size_t reply_len );
++		[CCode (cname = "wpa_ctrl_request")]
++		private int _request( [CCode (array_length_type = "size_t")] uint8[] cmd, [CCode (array_length = false)] uint8[] reply, ref size_t reply_len, MsgCb? msg_cb = null );
++		
++		[CCode (cname = "vala_wpa_ctrl_attach")]
++		public bool attach() {
++			return this._attach() == 0;
++		}
++		
++		[CCode (cname = "vala_wpa_ctrl_detach")]
++		public bool detach() {
++			return this._detach() == 0;
++		}
++		
++		[CCode (cname = "vala_wpa_ctrl_pending")]
++		public bool pending() {
++			return this._pending() == 0;
++		}
++		
++		[CCode (cname = "vala_wpa_ctrl_recv")]
++		public string? recv( uint buffer_length = 4096 ) {
++			uint8[] reply = new uint8[buffer_length];
++			size_t reply_len = reply.length;
++			
++			if(this._recv(reply, ref reply_len) != 0) return null;
++			
++			return (string) reply[0:reply_len];
++		}
++		
++		[CCode (cname = "vala_wpa_ctrl_request")]
++		public string? request( string cmd, uint buffer_length = 4096 ) {
++			uint8[] reply = new uint8[buffer_length];
++			size_t reply_len = reply.length;
++			
++			if(this._request(cmd.data, reply, ref reply_len) != 0) return null;
++			
++			return (string) reply[0:reply_len];
++		}
++	}
++}
