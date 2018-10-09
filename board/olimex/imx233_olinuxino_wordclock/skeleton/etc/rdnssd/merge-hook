@@ -58,9 +58,9 @@ fi
 TMPFILE=$(mktemp)
 
 {
-    grep -Ev "$RE_NSV4OR6" $resolvconf
+    grep -Ev "$RE_NSV4OR6" $resolvconf || true
         [ $limit -gt 0 ] && head -n $limit $myresolvconf
-    grep -E "$RE_NSV4" $resolvconf
+    grep -E "$RE_NSV4" $resolvconf || true
 } >| $TMPFILE
 
 cat $TMPFILE > $resolvconf
