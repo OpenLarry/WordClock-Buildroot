@@ -1,8 +1,0 @@
-#!/bin/sh
-if [ -e /sys/class/net/wlan0/address ]
-then
-	read MAC < /sys/class/net/wlan0/address
-	
-	hostname wordclock-${MAC:12:2}${MAC:15:2}
-fi
-
