@@ -1,0 +1,11 @@
+diff -Nura lirc-tools-0.10.1/daemons/lircd.cpp lirc-tools-0.10.1.new/daemons/lircd.cpp
+--- lirc-tools-0.10.1/daemons/lircd.cpp	2017-09-10 10:52:19.000000000 +0200
++++ lirc-tools-0.10.1.new/daemons/lircd.cpp	2018-10-10 10:41:17.000000000 +0200
+@@ -2282,6 +2282,7 @@
+ 			const char* s = strtok(buff, "\n");
+ 			log_notice("System info: %s", s);
+ 		}
++		pclose(f);
+ 	}
+ }
+ 
