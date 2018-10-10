@@ -1,0 +1,15 @@
+# set part of mac address as hostname
+
+if [ "$ifwireless" = "1" ]
+then
+	case "$reason" in
+	PREINIT)
+		if [ -e /sys/class/net/wlan0/address ]
+		then
+			read MAC < /sys/class/net/wlan0/address
+			
+			hostname wordclock-${MAC:12:2}${MAC:15:2}
+		fi
+	;;
+	esac
+fi
