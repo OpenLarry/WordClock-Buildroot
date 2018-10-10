@@ -1,0 +1,22 @@
+diff -Nura dhcpcd-6.11.5/dhcpcd-hooks/50-ntp.conf dhcpcd-6.11.5.new/dhcpcd-hooks/50-ntp.conf
+--- dhcpcd-6.11.5/dhcpcd-hooks/50-ntp.conf	2016-10-09 10:07:17.000000000 +0200
++++ dhcpcd-6.11.5.new/dhcpcd-hooks/50-ntp.conf	2018-10-10 13:12:22.000000000 +0200
+@@ -49,7 +49,8 @@
+ 	: ${NTP_DHCP_CONF:=/var/lib/ntp/ntp.conf.dhcp}
+ fi
+ 
+-: ${ntp_restart_cmd:=service_condcommand $ntp_service restart}
++# buildroot/busybox ntp restart command
++: ${ntp_restart_cmd:=/etc/init.d/S49ntp restart}
+ 
+ ntp_conf=${NTP_CONF}
+ NL="
+@@ -74,7 +75,7 @@
+ 			key_get_value "server " $interfaces)
+ 		if [ -n "$srvs" ]; then
+ 			for x in $(uniqify $srvs); do
+-				servers="${servers}server $x$NL"
++				servers="${servers}server $x iburst$NL"
+ 			done
+ 		fi
+ 	fi
