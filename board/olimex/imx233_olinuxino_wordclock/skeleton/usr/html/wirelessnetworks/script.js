@@ -126,8 +126,24 @@ jQuery(document).ready(function($) {
 		elem.appendTo('#networks');
 	}
 	
+	function reassociate() {
+		$.ajax({
+			url: 'http://'+location.hostname+':8080/wirelessnetworks/reassociate',
+			type: 'POST',
+			processData: false,
+			contentType: 'application/json',
+			success: function() {
+				message('Success','Reassociation started. Please wait!');
+			},
+			error: function(result) {
+				message('Error',result.responseText);
+			}
+		});
+	}
+	
 	get();
 	$('.add').click(add);
+	$('#reassociate').click(reassociate);
 	
 	$('#messagemodal').on('shown.bs.modal', function() {
 		$('#messagemodalok').focus();
