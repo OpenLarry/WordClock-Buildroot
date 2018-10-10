@@ -1,0 +1,12 @@
+diff -Nura dhcpcd-6.11.5/dhcpcd-run-hooks.in dhcpcd-6.11.5.new/dhcpcd-run-hooks.in
+--- dhcpcd-6.11.5/dhcpcd-run-hooks.in	2018-10-09 18:36:16.819042994 +0200
++++ dhcpcd-6.11.5.new/dhcpcd-run-hooks.in	2018-10-09 23:37:50.000000000 +0200
+@@ -194,7 +194,7 @@
+ 	*)		echo "$interface: $*";;
+ 	esac
+ 	if type logger >/dev/null 2>&1; then
+-		logger -i -p daemon."$lvl" -t dhcpcd-run-hooks "$interface: $*"
++		logger -p daemon."$lvl" -t dhcpcd-run-hooks "$interface: $*"
+ 	fi
+ }
+ 
