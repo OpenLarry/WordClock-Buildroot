@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Set firstboot uboot environment variable
+# Check system health and set firstboot uboot environment variable
 #
 set -e
 
@@ -13,31 +13,50 @@ case "$1" in
 		echo 250 > /sys/class/leds/green/delay_on # fast blinking
 		echo 250 > /sys/class/leds/green/delay_off # fast blinking
 		
-		echo "Wait for WordClock render thread"
+		WORDCLOCK_OKAY=false
+		WPA_SUPPLICANT_OKAY=false
+		
+		logger -p user.info -t firstboot "Check system health"
 		
 		# wait until render thread starts
 		for i in `seq 1 24`; do
 			if cat /proc/*/task/*/status | grep -q Ws2812bDriver; then
-				echo "WordClock render thread running"
-				echo 500 > /sys/class/leds/green/delay_on # slow blinking
-				echo 500 > /sys/class/leds/green/delay_off # slow blinking
-				
-				if fw_printenv firstboot | grep -q 2; then
-					echo "First boot after system upgrade";
-					fw_setenv firstboot 0;
-				fi;
-				break;
+				WORDCLOCK_OKAY=true
+				break
 			else
 				sleep 5
 			fi
 		done
 		
-		echo "Wait timeout"
 		
-		if fw_printenv firstboot | grep -q 2; then
-			echo "System upgrade failed";
-			reboot
-		fi;
+		# check if wpa_supplicant is running
+		if ps -o comm | grep -q wpa_supplicant; then
+			WPA_SUPPLICANT_OKAY=true
+		fi
+		
+		if "$WORDCLOCK_OKAY" == true && "$WPA_SUPPLICANT_OKAY" == true; then
+			logger -p user.info -t firstboot "System health okay"
+			
+			echo 500 > /sys/class/leds/green/delay_on # slow blinking
+			echo 500 > /sys/class/leds/green/delay_off # slow blinking
+			
+			if fw_printenv firstboot | grep -q 2; then
+				logger -p user.info -t firstboot "First boot after system upgrade"
+				fw_setenv firstboot 0
+			fi
+		else
+			if ! "$WORDCLOCK_OKAY" == true; then
+				logger -p user.warn -t firstboot "WordClock renderer thread not running"
+			fi
+			if ! "$WPA_SUPPLICANT_OKAY" == true; then
+				logger -p user.warn -t firstboot "wpa_supplicant not running"
+			fi
+			
+			if fw_printenv firstboot | grep -q 2; then
+				logger -p user.err -t firstboot "System upgrade failed"
+				reboot
+			fi
+		fi
 	) & # run in background
 	;;
 esac
