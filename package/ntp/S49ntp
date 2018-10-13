@@ -15,7 +15,17 @@ fi
 case "$1" in
   start)
     printf "Starting $NAME: "
-    start-stop-daemon -S -q -x $DAEMON -- -g
+    # Copy ntp.tpl to ntp.conf
+    if ! [ -e /etc/ntp.conf ]; then
+        cat /etc/ntp.tpl > /etc/ntp.conf
+    fi
+
+    # allow first adjustment to be big, if year is 1970
+    if [ $(date +%Y) == 1970 ]; then
+        start-stop-daemon -S -q -x $DAEMON -- -g
+    else
+        start-stop-daemon -S -q -x $DAEMON
+    fi
     [ $? = 0 ] && echo "OK" || echo "FAIL"
     ;;
   stop)
