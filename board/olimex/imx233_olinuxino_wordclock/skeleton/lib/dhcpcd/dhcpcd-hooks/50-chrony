@@ -1,0 +1,27 @@
+# For ease of use, map DHCP6 names onto our DHCP4 names
+case "$reason" in
+BOUND6|RENEW6|REBIND6|REBOOT6|INFORM6)
+	new_ntp_servers="$new_dhcp6_sntp_servers"
+	old_ntp_servers="$old_dhcp6_sntp_servers"
+;;
+esac
+
+if $if_up; then
+	chronyc online
+	
+	if [ -n "$new_ntp_servers" ]; then
+		for x in $new_ntp_servers; do
+			chronyc add server "$x" iburst
+			syslog info "Add ntp server $x"
+		done
+	fi
+elif $if_down; then
+	chronyc offline
+	
+	if [ -n "$old_ntp_servers" ]; then
+		for x in $old_ntp_servers; do
+			chronyc delete "$x"
+			syslog info "Delete ntp server $x"
+		done
+	fi
+fi
