@@ -19,7 +19,7 @@ ifeq ($(BR2_USE_MMU),)
 DHCPCD_CONFIG_OPTS += --disable-fork
 endif
 
-DHCPCD_CONFIG_OPTS += --with-hook=ntp --with-hook=wpa_supplicant
+DHCPCD_CONFIG_OPTS += --with-hook=wpa_supplicant
 
 define DHCPCD_CONFIGURE_CMDS
 	(cd $(@D); \
