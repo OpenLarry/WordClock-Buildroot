@@ -20,7 +20,7 @@ case "$1" in
 		
 		# wait until render thread starts
 		for i in `seq 1 24`; do
-			if cat /proc/*/task/*/status | grep -q Ws2812bDriver; then
+			if ps -o comm -T | grep -q Ws2812bDriver; then
 				WORDCLOCK_OKAY=true
 				break
 			else
