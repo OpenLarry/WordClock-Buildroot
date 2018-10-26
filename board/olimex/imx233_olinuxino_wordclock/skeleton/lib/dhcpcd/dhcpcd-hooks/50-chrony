@@ -11,8 +11,8 @@ if $if_up; then
 	
 	if [ -n "$new_ntp_servers" ]; then
 		for x in $new_ntp_servers; do
-			chronyc add server "$x" iburst
 			syslog info "Add ntp server $x"
+			chronyc add server "$x" iburst
 		done
 	fi
 elif $if_down; then
@@ -20,8 +20,8 @@ elif $if_down; then
 	
 	if [ -n "$old_ntp_servers" ]; then
 		for x in $old_ntp_servers; do
-			chronyc delete "$x"
 			syslog info "Delete ntp server $x"
+			chronyc delete "$x"
 		done
 	fi
 fi
