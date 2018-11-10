@@ -7,7 +7,7 @@ BOUND6|RENEW6|REBIND6|REBOOT6|INFORM6)
 esac
 
 if $if_up; then
-	chronyc online
+	/sbin/ip route list | grep -q '^default' && chronyc online
 	
 	if [ -n "$new_ntp_servers" ]; then
 		for x in $new_ntp_servers; do
@@ -16,7 +16,7 @@ if $if_up; then
 		done
 	fi
 elif $if_down; then
-	chronyc offline
+	/sbin/ip route list | grep -q '^default' || chronyc offline
 	
 	if [ -n "$old_ntp_servers" ]; then
 		for x in $old_ntp_servers; do
