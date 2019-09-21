@@ -1,2 +1,4 @@
 # From https://download.gnome.org/sources/vala/0.34/vala-0.34.7.sha256sum
 sha256 1b2cb14f377d4c41fa3a86d3d01b93017015ce91b6714a85f27346073b4034fa  vala-0.34.7.tar.xz
+# From https://download.gnome.org/sources/vala/0.36/vala-0.36.20.sha256sum
+sha256 be960a87841d85ff76cbd0e10eb691675190e54bd690d76982b3fb94a1fc67a7  vala-0.36.20.tar.xz
