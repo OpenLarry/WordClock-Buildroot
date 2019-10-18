@@ -1,0 +1,19 @@
+#!/bin/sh
+#
+# Move dhcpcd config files to new location
+#
+set -e
+
+case "$1" in
+  start)
+    mkdir -p /var/db/dhcpcd
+    [ -f /etc/dhcpcd.duid ] && mv -f /etc/dhcpcd.duid /var/db/dhcpcd/duid
+    [ -f /etc/dhcpcd.secret ] && mv -f /etc/dhcpcd.secret /var/db/dhcpcd/secret
+    for file in /var/db/dhcpcd-*; do
+        mv -f $file /var/db/dhcpcd/${file#/var/db/dhcpcd-}
+    done
+    
+    # remove this script
+    rm "$0"
+    ;;
+esac
