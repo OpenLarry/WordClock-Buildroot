@@ -1,0 +1,51 @@
+diff -Nura dhcpcd-7.0.3/configure dhcpcd-7.0.3.new/configure
+--- dhcpcd-7.0.3/configure	2018-04-06 12:28:57.000000000 +0200
++++ dhcpcd-7.0.3.new/configure	2019-09-26 09:16:58.000000000 +0200
+@@ -550,8 +550,8 @@
+ 		echo "#define	HAVE_NL80211_H" >>$CONFIG_H
+ 	else
+ 		echo "no"
+-		echo "DHCPCD_SRCS+=	if-linux-wext.c" >>$CONFIG_MK
+ 	fi
++	echo "DHCPCD_SRCS+=	if-linux-wext.c" >>$CONFIG_MK
+ 	rm -f _nl80211.c _nl80211
+ 
+ 	printf "Testing for IN6_ADDR_GEN_MODE_NONE ... "
+diff -Nura dhcpcd-7.0.3/src/if-linux.c dhcpcd-7.0.3.new/src/if-linux.c
+--- dhcpcd-7.0.3/src/if-linux.c	2018-04-06 12:28:57.000000000 +0200
++++ dhcpcd-7.0.3.new/src/if-linux.c	2019-09-26 09:17:00.000000000 +0200
+@@ -76,9 +76,8 @@
+ #ifdef HAVE_NL80211_H
+ #include <linux/genetlink.h>
+ #include <linux/nl80211.h>
+-#else
+-int if_getssid_wext(const char *ifname, uint8_t *ssid);
+ #endif
++int if_getssid_wext(const char *ifname, uint8_t *ssid);
+ 
+ /* Support older kernels */
+ #ifndef IFLA_WIRELESS
+@@ -1160,17 +1159,18 @@
+ int
+ if_getssid(struct interface *ifp)
+ {
+-	int r;
++	int r = -1;
+ 
+ #ifdef HAVE_NL80211_H
+ 	r = if_getssid_nl80211(ifp);
+ 	if (r == -1)
+ 		ifp->ssid_len = 0;
+-#else
+-	r = if_getssid_wext(ifp->name, ifp->ssid);
+-	if (r != -1)
+-		ifp->ssid_len = (unsigned int)r;
+ #endif
++	if (r == -1) {
++		r = if_getssid_wext(ifp->name, ifp->ssid);
++		if (r != -1)
++			ifp->ssid_len = (unsigned int)r;
++	}
+ 
+ 	ifp->ssid[ifp->ssid_len] = '\0';
+ 	return r;
