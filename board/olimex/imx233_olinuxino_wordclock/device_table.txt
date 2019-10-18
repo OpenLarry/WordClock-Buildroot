@@ -12,6 +12,7 @@
 /root/.config/htop/htoprc			f	600	0	0	-	-	-	-	-
 /usr/sbin/update				f	755	0	0	-	-	-	-	-
 /usr/sbin/flashimage				f	755	0	0	-	-	-	-	-
+/etc/init.d/S40dhcpcd_migration				f	755	0	0	-	-	-	-	-
 /etc/init.d/S98update				f	755	0	0	-	-	-	-	-
 /etc/init.d/S99firstboot				f	755	0	0	-	-	-	-	-
 /etc/profile.d/locale.sh				f	755	0	0	-	-	-	-	-
