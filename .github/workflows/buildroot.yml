@@ -9,6 +9,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
       with:
+        token: ${{ secrets.GITHUB_API }}
         submodules: true
     - name: install dependencies
       run: sudo apt-get update && sudo apt-get -y install build-essential libncurses5-dev git bzr cvs mercurial subversion libc6:i386 unzip bc gcc-multilib g++-multilib 
