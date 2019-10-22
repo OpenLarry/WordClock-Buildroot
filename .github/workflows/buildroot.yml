@@ -12,6 +12,12 @@ jobs:
         token: ${{ secrets.GITHUB_API }}
         submodules: true
     - name: install dependencies
-      run: sudo apt-get update && sudo apt-get -y install build-essential libncurses5-dev git bzr cvs mercurial subversion libc6:i386 unzip bc gcc-multilib g++-multilib 
+      run: |
+        sudo dpkg --add-architecture i386
+        sudo apt-get update
+        sudo apt-get -y install build-essential libncurses5-dev git bzr cvs mercurial subversion libc6:i386 unzip bc gcc-multilib g++-multilib 
     - name: make
-      run: make olimex_imx233_olinuxino_wordclock_defconfig && sed -i -e 's/BR2_CCACHE=y/BR2_CCACHE=n/g' .config && make
+      run: |
+        make olimex_imx233_olinuxino_wordclock_defconfig
+        sed -i -e 's/BR2_CCACHE=y/BR2_CCACHE=n/g' .config
+        make
