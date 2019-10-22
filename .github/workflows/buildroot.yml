@@ -1,0 +1,16 @@
+name: Build WordClock image
+
+on: [push, pull_request]
+jobs:
+
+  build:
+    name: Build
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        submodules: true
+    - name: install dependencies
+      run: sudo apt-get update && sudo apt-get -y install build-essential libncurses5-dev git bzr cvs mercurial subversion libc6:i386 unzip bc gcc-multilib g++-multilib 
+    - name: make
+      run: make olimex_imx233_olinuxino_wordclock_defconfig && sed -i -e 's/BR2_CCACHE=y/BR2_CCACHE=n/g' .config && make
