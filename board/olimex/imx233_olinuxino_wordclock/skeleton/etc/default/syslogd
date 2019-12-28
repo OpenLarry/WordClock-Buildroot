@@ -1,1 +1,1 @@
-SYSLOGD_ARGS="-n -b 5"
+SYSLOGD_ARGS="-b 5"
