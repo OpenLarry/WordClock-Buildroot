@@ -21,7 +21,3 @@ jobs:
         make olimex_imx233_olinuxino_wordclock_defconfig
         sed -i -e 's/BR2_CCACHE=y/BR2_CCACHE=n/g' .config
         make
-    - uses: actions/upload-artifact@v1
-      with:
-        name: images
-        path: output/images
