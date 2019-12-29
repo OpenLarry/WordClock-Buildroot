@@ -13,6 +13,7 @@
 /usr/sbin/update				f	755	0	0	-	-	-	-	-
 /usr/sbin/flashimage				f	755	0	0	-	-	-	-	-
 /etc/init.d/S40dhcpcd_migration				f	755	0	0	-	-	-	-	-
+/etc/init.d/S40wpa_supplicant_migration				f	755	0	0	-	-	-	-	-
 /etc/init.d/S99update				f	755	0	0	-	-	-	-	-
 /etc/init.d/S03firstboot				f	755	0	0	-	-	-	-	-
 /etc/profile.d/locale.sh				f	755	0	0	-	-	-	-	-
