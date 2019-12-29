@@ -1,0 +1,14 @@
+#!/bin/sh
+#
+# Add autoscan parameter to wpa_supplicant.conf
+#
+set -e
+
+case "$1" in
+  start)
+    sed -i '/^update_config=1$/a autoscan=exponential:2:120' /etc/wpa_supplicant/wpa_supplicant.conf
+    
+    # remove this script
+    rm "$0"
+    ;;
+esac
