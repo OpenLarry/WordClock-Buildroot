@@ -1,7 +1,6 @@
 #!/bin/sh
 #
-# Set LANG and TZ
+# Set LANG
 #
 
 export LANG=de_DE.UTF-8
-export TZ=$(cat /etc/TZ)
