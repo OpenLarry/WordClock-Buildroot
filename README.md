@@ -1,5 +1,19 @@
 # WordClock Buildroot
 
+This is the [Buildroot](https://buildroot.org/)-based WordClock image generator, which compiles the [WordClock main application](https://github.com/OpenLarry/WordClock-Buildroot) and a slightly modified [Linux kernel](https://github.com/OpenLarry/WordClock-Kernel) and creates a bootable SD card image for the [iMX233-OLinuXino-NANO](https://www.olimex.com/Products/OLinuXino/iMX233/iMX233-OLinuXino-NANO/open-source-hardware) single-board computer.
+
+## Features
+
+* Runs [WordClock main application](https://github.com/OpenLarry/WordClock-Buildroot).
+* Provides a minimal web interface based on [Bootstrap](https://getbootstrap.com/), [jQuery](https://jquery.com/) and [Ace](https://ace.c9.io/) for configuration, scripting, and monitoring.
+* Supports RTL8188xx based USB WiFi dongles.
+* Offers failsafe OTA updates using A/B partitions and OverlayFS.
+* Uses
+    * chrony for NTP time synchronization,
+    * LIRC for IR remote control,
+    * dhcpcd and wpa_supplicant for network configuration and
+    * nginx as a web server.
+
 ## Requirements
 * Check out buildroot requirements: https://buildroot.org/downloads/manual/manual.html#requirement
 * About __15GB__ of free disk space
@@ -28,6 +42,7 @@
    * `uboot-env.bin` boot loader configuration
    * `uImage.imx233-olinuxino` linux kernel
    * `rootfs.squashfs` root filesystem
+   * `update.bin` minimal OTA update image
    
 8. Copy to SD card:
    
