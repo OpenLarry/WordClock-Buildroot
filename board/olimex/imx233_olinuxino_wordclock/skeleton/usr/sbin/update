@@ -25,7 +25,7 @@ for i in `seq 1 12`; do
 		exit;
 	else
 		if [ $i -lt 12 ]; then
-			sleep 10;
+			sleep 60;
 		fi;
 	fi;
 done
