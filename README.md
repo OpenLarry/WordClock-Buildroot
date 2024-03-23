@@ -1,10 +1,10 @@
 # WordClock Buildroot
 
-This is the [Buildroot](https://buildroot.org/)-based WordClock image generator, which compiles the [WordClock main application](https://github.com/OpenLarry/WordClock-Buildroot) and a slightly modified [Linux kernel](https://github.com/OpenLarry/WordClock-Kernel) and creates a bootable SD card image for the [iMX233-OLinuXino-NANO](https://www.olimex.com/Products/OLinuXino/iMX233/iMX233-OLinuXino-NANO/open-source-hardware) single-board computer.
+This is the [Buildroot](https://buildroot.org/)-based WordClock image generator, which compiles the [WordClock main application](https://github.com/OpenLarry/WordClock) and a slightly modified [Linux kernel](https://github.com/OpenLarry/WordClock-Kernel) and creates a bootable SD card image for the [iMX233-OLinuXino-NANO](https://www.olimex.com/Products/OLinuXino/iMX233/iMX233-OLinuXino-NANO/open-source-hardware) single-board computer.
 
 ## Features
 
-* Runs [WordClock main application](https://github.com/OpenLarry/WordClock-Buildroot).
+* Runs [WordClock main application](https://github.com/OpenLarry/WordClock).
 * Provides a minimal web interface based on [Bootstrap](https://getbootstrap.com/), [jQuery](https://jquery.com/) and [Ace](https://ace.c9.io/) for configuration, scripting, and monitoring.
 * Supports RTL8188xx based USB WiFi dongles.
 * Offers failsafe OTA updates using A/B partitions and OverlayFS.
