@@ -1,0 +1,2 @@
+# Fix permissions for drift file
+chown -R chrony:chrony /var/lib/chrony
