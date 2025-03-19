@@ -1,0 +1,16 @@
+#!/bin/sh
+#
+# Move wpa_supplicant.conf
+#
+set -e
+
+case "$1" in
+  start)
+    if [ -f /etc/wpa_supplicant/wpa_supplicant.conf ]; then
+      cp /etc/wpa_supplicant/wpa_supplicant.conf /etc/wpa_supplicant
+    fi
+    
+    # remove this script
+    rm "$0"
+    ;;
+esac
